@@ -555,20 +555,25 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
     <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;">
       <!-- Main form -->
       <div class="card" style="border:1px solid rgba(255,255,255,.06);">
-        <!-- Contact -->
-        <div style="margin-bottom:20px;">
-          <div style="font-size:11px;color:var(--t2);margin-bottom:6px;">Contact</div>
-          <input id="inv-to-name" placeholder="— Select or type customer —" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:9px 12px;color:rgba(255,255,255,.85);font-size:13px;outline:none;">
-        </div>
-        <!-- Company header -->
-        <div style="text-align:right;margin-bottom:24px;">
-          <div style="font-size:16px;font-weight:700;color:rgba(255,255,255,.9);" id="inv-company-display">Eduvo Denmark ApS</div>
+        <!-- Top: Customer left, Logo+Company right -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;">
+          <div style="max-width:260px;">
+            <div style="font-size:11px;color:var(--t2);margin-bottom:6px;">Customer</div>
+            <input id="inv-to-name" placeholder="Customer name" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 12px;color:rgba(255,255,255,.85);font-size:12px;outline:none;margin-bottom:6px;">
+            <input id="inv-to-addr" placeholder="Address" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 12px;color:rgba(255,255,255,.85);font-size:12px;outline:none;">
+          </div>
+          <div style="text-align:right;">
+            <div id="inv-logo-preview" style="margin-bottom:8px;display:flex;justify-content:flex-end;"><div style="width:80px;height:80px;border-radius:8px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:10px;">No logo</div></div>
+            <div style="font-size:16px;font-weight:700;color:rgba(255,255,255,.9);" id="inv-company-display">Eduvo Denmark ApS</div>
+            <div style="font-size:11px;color:var(--t2);margin-top:2px;" id="inv-addr-display">Platanvej 20, 7441 Bording</div>
+            <div style="font-size:11px;color:var(--t2);" id="inv-cvr-display">CVR: DK43123254</div>
+          </div>
         </div>
         <!-- Date + Invoice # -->
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
           <div>
             <div style="font-size:11px;color:var(--t2);margin-bottom:6px;">Date</div>
-            <input id="inv-date" type="date" value="2026-03-27" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 12px;color:rgba(255,255,255,.85);font-size:12px;outline:none;">
+            <input id="inv-date" type="date" value="2026-03-28" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 12px;color:rgba(255,255,255,.85);font-size:12px;outline:none;">
           </div>
           <div style="text-align:right;">
             <div style="font-size:11px;color:var(--t2);margin-bottom:6px;">Invoice #</div>
@@ -576,7 +581,7 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
           </div>
         </div>
         <!-- Comments -->
-        <textarea id="inv-comments" placeholder="Enter any comments..." style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:9px 12px;color:rgba(255,255,255,.85);font-size:12px;outline:none;resize:vertical;min-height:60px;font-family:inherit;margin-bottom:20px;"></textarea>
+        <textarea id="inv-comments" placeholder="Enter any comments..." style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:9px 12px;color:rgba(255,255,255,.85);font-size:12px;outline:none;resize:vertical;min-height:50px;font-family:inherit;margin-bottom:20px;"></textarea>
         <!-- Invoice title -->
         <input id="inv-title" value="Invoice" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:9px 12px;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;outline:none;margin-bottom:16px;">
         <!-- Line items table -->
@@ -610,7 +615,7 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
           <div style="margin-top:4px;">Invoice # <span id="inv-ref-display">1</span> must be stated on bank transfer.</div>
         </div>
         <!-- Company footer -->
-        <div style="margin-top:20px;text-align:center;font-size:10px;color:rgba(255,255,255,.3);line-height:1.6;">
+        <div style="margin-top:20px;text-align:center;font-size:10px;color:rgba(255,255,255,.3);line-height:1.6;" id="inv-footer-display">
           <strong>Eduvo Denmark ApS</strong> / Platanvej 20 / 7441 Bording<br>
           CVR-nr. DK43123254 / Mail: mail@frederikfrifeldt.com
         </div>
@@ -621,17 +626,36 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
         <button class="btn btn-primary btn-sm" style="width:100%;padding:10px;" onclick="approveInvoice()">Approve</button>
         <!-- Settings -->
         <div class="card" style="border:1px solid rgba(255,255,255,.06);">
-          <div style="font-size:11px;color:var(--t2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em;">Settings</div>
+          <div style="font-size:11px;color:var(--t2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em;">Business Settings</div>
+          <!-- Logo upload -->
+          <div style="margin-bottom:10px;">
+            <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Logo</div>
+            <label style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.1);border-radius:6px;cursor:pointer;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--t2);flex-shrink:0;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span style="font-size:11px;color:var(--t2);" id="inv-logo-label">Upload logo</span>
+              <input type="file" id="inv-logo-input" accept="image/*" onchange="handleLogoUpload(this)" style="display:none;">
+            </label>
+          </div>
+          <div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Company Name</div>
+            <input id="inv-from-name" value="Eduvo Denmark ApS" oninput="updateInvSettings()" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;">
+          </div>
+          <div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Address</div>
+            <input id="inv-from-addr" value="Platanvej 20, 7441 Bording" oninput="updateInvSettings()" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;">
+          </div>
+          <div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">CVR / Reg. No.</div>
+            <input id="inv-from-cvr" value="DK43123254" oninput="updateInvSettings()" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;">
+          </div>
+          <div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Email</div>
+            <input id="inv-from-email" value="mail@frederikfrifeldt.com" oninput="updateInvSettings()" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;">
+          </div>
+          <div class="separator" style="margin:10px 0;"></div>
           <div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Currency</div>
             <select id="inv-currency" onchange="calcInvTotals();renderInvItems();" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;cursor:pointer;">
               <option value="DKK" style="background:#1a1a2e;">DKK</option><option value="EUR" style="background:#1a1a2e;">EUR</option><option value="GBP" style="background:#1a1a2e;">GBP</option><option value="USD" style="background:#1a1a2e;">USD</option>
             </select>
           </div>
-          <div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">VAT %</div>
+          <div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">VAT %</div>
             <input id="inv-vat" type="number" value="25" onchange="calcInvTotals()" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;">
-          </div>
-          <div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Company Name</div>
-            <input id="inv-from-name" value="Eduvo Denmark ApS" onchange="document.getElementById('inv-company-display').textContent=this.value;" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;">
           </div>
         </div>
         <!-- Preview -->
@@ -1302,7 +1326,27 @@ let invItems=[{desc:'',qty:1,unit:'pcs',price:0,discount:0}];
 let invoices=[];
 let invNextNum=1;
 let invFilter='all';
+let invLogoData=null;
 const _is='background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:5px 7px;color:rgba(255,255,255,.85);font-size:11px;outline:none;';
+
+function handleLogoUpload(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    invLogoData=e.target.result;
+    document.getElementById('inv-logo-preview').innerHTML=`<img src="${invLogoData}" style="max-width:80px;max-height:80px;border-radius:8px;object-fit:contain;">`;
+    document.getElementById('inv-logo-label').textContent=file.name;
+  };
+  reader.readAsDataURL(file);
+}
+function updateInvSettings(){
+  const v=id=>(document.getElementById(id)||{}).value||'';
+  document.getElementById('inv-company-display').textContent=v('inv-from-name');
+  document.getElementById('inv-addr-display').textContent=v('inv-from-addr');
+  document.getElementById('inv-cvr-display').textContent='CVR: '+v('inv-from-cvr');
+  document.getElementById('inv-footer-display').innerHTML='<strong>'+v('inv-from-name')+'</strong> / '+v('inv-from-addr')+'<br>CVR-nr. '+v('inv-from-cvr')+' / Mail: '+v('inv-from-email');
+}
+function markInvPaid(i){invoices[i].status='Paid';renderInvList();}
 
 function showInvForm(type){
   document.getElementById('inv-list-view').style.display='none';
@@ -1374,16 +1418,18 @@ function renderInvList(){
   ['Draft','Approved','Overdue','Paid'].forEach(s=>{const el=document.getElementById('ic-'+s);if(el)el.textContent=invoices.filter(iv=>iv.status===s).length;});
   if(list.length===0){tb.innerHTML='<tr><td colspan="7" style="padding:32px 12px;color:var(--t2);font-size:12px;">No invoices found.</td></tr>';return;}
   tb.innerHTML='';
-  list.forEach(iv=>{
+  list.forEach((iv,li)=>{
+    const ri=invoices.indexOf(iv);
     const stMap={Draft:['rgba(255,255,255,.08)','rgba(255,255,255,.5)'],Approved:['rgba(74,222,128,.1)','#4ade80'],Overdue:['rgba(251,113,133,.1)','#fb7185'],Paid:['rgba(124,58,237,.1)','#c4b5fd']};
     const sc=stMap[iv.status]||stMap.Draft;
+    const paidBtn=iv.status!=='Paid'?`<button onclick="event.stopPropagation();markInvPaid(${ri})" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 8px;font-size:10px;color:rgba(255,255,255,.5);cursor:pointer;margin-left:6px;">Mark Paid</button>`:'';
     tb.innerHTML+=`<tr style="border-bottom:1px solid var(--b1);cursor:pointer;transition:background .15s;" onmouseenter="this.style.background='rgba(255,255,255,.02)'" onmouseleave="this.style.background='transparent'">
       <td style="padding:10px 12px;color:rgba(255,255,255,.7);">${iv.number}</td>
       <td style="padding:10px 12px;color:var(--t2);">${iv.date}</td>
       <td style="padding:10px 12px;color:var(--t2);">${iv.due}</td>
       <td style="padding:10px 12px;color:rgba(255,255,255,.8);">${iv.desc||'Invoice'}</td>
       <td style="padding:10px 12px;color:rgba(255,255,255,.7);">${iv.customer||'—'}</td>
-      <td style="padding:10px 12px;"><span style="font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600;background:${sc[0]};color:${sc[1]};">${iv.status}</span></td>
+      <td style="padding:10px 12px;"><span style="font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600;background:${sc[0]};color:${sc[1]};">${iv.status}</span>${paidBtn}</td>
       <td style="padding:10px 12px;text-align:right;font-weight:600;color:rgba(255,255,255,.85);">${iv.cur} ${iv.total.toFixed(2)}</td>
     </tr>`;
   });
@@ -1398,15 +1444,16 @@ function getInvData(){
   const netDays=parseInt(v('inv-net-days'))||30;
   const dueDate=new Date(dateVal);dueDate.setDate(dueDate.getDate()+netDays);
   const dueStr=dueDate.toISOString().split('T')[0];
-  return {number:invNextNum,fromName:v('inv-from-name'),customer:v('inv-to-name'),date:dateVal,due:dueStr,cur,vat,items:[...invItems.map(it=>({...it}))],sub,total,desc:v('inv-title'),notes:v('inv-comments'),bankReg:v('inv-bank-reg'),bankAcct:v('inv-bank-acct'),netDays,status:'Draft'};
+  return {number:invNextNum,fromName:v('inv-from-name'),fromAddr:v('inv-from-addr'),fromCvr:v('inv-from-cvr'),fromEmail:v('inv-from-email'),logo:invLogoData,customer:v('inv-to-name'),customerAddr:v('inv-to-addr'),date:dateVal,due:dueStr,cur,vat,items:[...invItems.map(it=>({...it}))],sub,total,desc:v('inv-title'),notes:v('inv-comments'),bankReg:v('inv-bank-reg'),bankAcct:v('inv-bank-acct'),netDays,status:'Draft'};
 }
 function buildInvoiceHTML(d){
   const sym={DKK:'DKK ',EUR:'€',GBP:'£',USD:'$'}[d.cur]||d.cur+' ';
   const rows=d.items.map(it=>{const lt=it.qty*it.price*(1-(it.discount||0)/100);return `<tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">${it.desc||'—'}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:center;">${it.qty}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:center;">${it.unit||'pcs'}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${sym}${it.price.toFixed(2)}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${it.discount||0}%</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${sym}${lt.toFixed(2)}</td></tr>`;}).join('');
+  const logoHtml=d.logo?`<img src="${d.logo}" style="max-width:100px;max-height:60px;object-fit:contain;margin-bottom:8px;">`:'';
   return `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a2e;padding:48px;">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;">
-      <div style="font-size:10px;color:#999;">INVOICE TO<div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-top:4px;">${d.customer||'—'}</div></div>
-      <div style="text-align:right;"><div style="font-size:18px;font-weight:800;color:#1a1a2e;">${d.fromName}</div></div>
+      <div style="font-size:10px;color:#999;">INVOICE TO<div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-top:4px;">${d.customer||'—'}</div>${d.customerAddr?`<div style="font-size:12px;color:#666;margin-top:2px;">${d.customerAddr}</div>`:''}</div>
+      <div style="text-align:right;">${logoHtml}<div style="font-size:18px;font-weight:800;color:#1a1a2e;">${d.fromName}</div><div style="font-size:11px;color:#888;margin-top:2px;">${d.fromAddr||''}</div><div style="font-size:11px;color:#888;">CVR: ${d.fromCvr||''}</div></div>
     </div>
     <div style="display:flex;justify-content:space-between;margin-bottom:28px;">
       <div><div style="font-size:10px;color:#999;">DATE</div><div style="font-size:13px;margin-top:2px;">${d.date}</div></div>
@@ -1429,7 +1476,7 @@ function buildInvoiceHTML(d){
       ${d.bankReg||d.bankAcct?`<div>Bank / Reg. ${d.bankReg||'—'} / Acct. ${d.bankAcct||'—'}</div>`:''}
       <div>Invoice # ${d.number} must be stated on bank transfer.</div>
     </div>
-    <div style="margin-top:32px;text-align:center;font-size:9px;color:#bbb;"><strong>${d.fromName}</strong> / Platanvej 20 / 7441 Bording · CVR-nr. DK43123254 · mail@frederikfrifeldt.com</div>
+    <div style="margin-top:32px;text-align:center;font-size:9px;color:#bbb;"><strong>${d.fromName}</strong> / ${d.fromAddr||''} · CVR-nr. ${d.fromCvr||''} · ${d.fromEmail||''}</div>
   </div>`;
 }
 function previewInvoice(){
