@@ -285,6 +285,12 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
       <span class="ni-label">Points & Perks</span>
     </div>
 
+    <div class="ni" onclick="nav('tasks',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      <span class="ni-label">Tasks</span>
+      <span class="ni-badge amber">7</span>
+    </div>
+
     <div class="sb-section">Intelligence</div>
     <div class="ni" onclick="nav('intelligence',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -480,36 +486,6 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
     </div>
   </div>
 
-  <!-- Spend intel + Scenarios -->
-  <div class="g2c">
-    <div class="card">
-      <div class="ct">Predictive scenarios</div>
-      <div class="tabs" style="margin-bottom:14px;">
-        <button class="tab active" id="stab-base" onclick="setScenario('base')">Base case</button>
-        <button class="tab" id="stab-hires" onclick="setScenario('hires')">+3 hires</button>
-        <button class="tab" id="stab-growth" onclick="setScenario('growth')">+10% growth</button>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-        <div style="background:rgba(255,255,255,.04);border-radius:var(--rm);padding:12px;border:1px solid var(--b1);"><div style="font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Runway</div><div style="font-size:20px;font-weight:700;letter-spacing:-.4px;" id="sc-runway">12.4 mo</div><div style="height:3px;border-radius:99px;margin-top:8px;" id="sc-bar" style="width:70%;background:linear-gradient(90deg,#7c3aed,#2563eb);"></div></div>
-        <div style="background:rgba(255,255,255,.04);border-radius:var(--rm);padding:12px;border:1px solid var(--b1);"><div style="font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Cash positive</div><div style="font-size:20px;font-weight:700;" id="sc-cash" style="color:#fb7185;">No</div></div>
-        <div style="background:rgba(255,255,255,.04);border-radius:var(--rm);padding:12px;border:1px solid var(--b1);"><div style="font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Burn delta</div><div style="font-size:20px;font-weight:700;" id="sc-burn" style="color:#fcd34d;">+0%</div></div>
-      </div>
-      <div style="font-size:12px;color:var(--t2);margin-top:11px;padding:9px;background:rgba(255,255,255,.03);border-radius:var(--rs);" id="sc-note">Current headcount and revenue pace. No major changes assumed.</div>
-    </div>
-    <div class="card" style="background:linear-gradient(135deg,var(--s1),rgba(124,58,237,.06));">
-      <div class="ct">Spend intelligence</div>
-      <div class="pbar"><div class="phead"><span>Engineering</span><span style="color:var(--t2);">€46k / €59k</span></div><div class="pt"><div class="pf fg" style="width:78%;"></div></div></div>
-      <div class="pbar"><div class="phead"><span>Marketing <span class="p-dn" style="font-size:10px;">at risk</span></span><span style="color:var(--t2);">€32k / €35k</span></div><div class="pt"><div class="pf frd" style="width:91%;"></div></div></div>
-      <div class="pbar"><div class="phead"><span>Sales</span><span style="color:var(--t2);">€19k / €30k</span></div><div class="pt"><div class="pf fg" style="width:64%;"></div></div></div>
-      <div class="pbar"><div class="phead"><span>Operations</span><span style="color:var(--t2);">€11k / €19k</span></div><div class="pt"><div class="pf fgr" style="width:57%;"></div></div></div>
-      <div class="separator"></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;text-align:center;">
-        <div><div style="font-size:11px;color:var(--t2);">Payroll</div><div style="font-size:15px;font-weight:700;color:#c4b5fd;">54%</div></div>
-        <div><div style="font-size:11px;color:var(--t2);">SaaS</div><div style="font-size:15px;font-weight:700;color:#93c5fd;">13%</div></div>
-        <div><div style="font-size:11px;color:var(--t2);">Mktg</div><div style="font-size:15px;font-weight:700;color:#fb7185;">19%</div></div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- ══ CARDS ══ -->
@@ -1064,9 +1040,85 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
   </div>
 </div>
 
+<!-- ══ TASKS ══ -->
+<div id="page-tasks" class="page">
+  <div class="ph"><div class="ph-left"><div class="ph-eyebrow">Productivity</div><div class="ph-title">Business Tasks</div></div><div class="ph-right"><button class="btn btn-ghost btn-sm" onclick="taskFilter('all')">All</button><button class="btn btn-ghost btn-sm" onclick="taskFilter('progress')">In progress</button><button class="btn btn-ghost btn-sm" onclick="taskFilter('notstarted')">Not started</button><button class="btn btn-primary btn-sm" onclick="addTaskRow()">+ New Task</button></div></div>
+  <div class="g4">
+    <div class="stat-card" style="background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(37,99,235,.07));border-color:rgba(124,58,237,.2);"><div class="slbl">Total tasks</div><div class="sv" id="task-total">15</div><div class="ssub">Across all projects</div></div>
+    <div class="stat-card" style="background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(244,63,94,.05));border-color:rgba(245,158,11,.18);"><div class="slbl">In progress</div><div class="sv" style="color:#fcd34d;" id="task-progress">8</div><div class="ssub">Currently active</div></div>
+    <div class="stat-card" style="background:linear-gradient(135deg,rgba(244,63,94,.1),rgba(245,158,11,.05));border-color:rgba(244,63,94,.2);"><div class="slbl">Due today</div><div class="sv" style="color:#fb7185;" id="task-due">7</div><div class="ssub">Needs attention</div></div>
+    <div class="stat-card" style="background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(6,182,212,.05));border-color:rgba(34,197,94,.18);"><div class="slbl">High priority</div><div class="sv" style="color:#4ade80;" id="task-high">6</div><div class="ssub">Focus items</div></div>
+  </div>
+  <div class="card" style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;" id="task-table">
+      <thead>
+        <tr style="border-bottom:1px solid var(--b1);text-align:left;">
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;width:36px;"></th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Name</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Project</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Due</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Priority</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Status</th>
+        </tr>
+      </thead>
+      <tbody id="task-body"></tbody>
+    </table>
+  </div>
+</div>
+
 </main>
 </div>
 
+<script>
+/* ── Task data ── */
+const TASKS=[
+  {name:"Record voiceovers for missing content",project:"Content",due:"28/03/2026",priority:"High",status:"In progress"},
+  {name:"Film missing content shots",project:"Content",due:"28/03/2026",priority:"High",status:"In progress"},
+  {name:"Android developer for new flow by link",project:"World Medical Card",due:"28/03/2026",priority:"High",status:"In progress"},
+  {name:"Find a bank or API partner for new project",project:"MIDNYTE",due:"28/03/2026",priority:"High",status:"In progress"},
+  {name:"Move the PDF generator, API and FTP to Google Cloud",project:"World Medical Card",due:"04/04/2026",priority:"High",status:"In progress"},
+  {name:"Verify their identity for EDUVO LTD at Companies House",project:"MIDNYTE",due:"28/03/2026",priority:"High",status:"Not started"},
+  {name:"Develop wavo AI builder",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"In progress"},
+  {name:"Tech Founder Society funnel and 7 day challenge",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started"},
+  {name:"Tech Founder Society start marketing",project:"MIDNYTE",due:"04/04/2026",priority:"Medium",status:"Not started"},
+  {name:"Casino traffic from Microsoft",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"In progress"},
+  {name:"List eduvo on sales platform with new name",project:"MIDNYTE",due:"04/04/2026",priority:"Medium",status:"Not started"},
+  {name:"Casino traffic from Taboola",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started"},
+  {name:"Cancel Azure",project:"World Medical Card",due:"04/04/2026",priority:"Medium",status:"Not started"},
+];
+const projColors={"Content":"#7c3aed","World Medical Card":"#2563eb","MIDNYTE":"#f43f5e"};
+function projBadge(p){const c=projColors[p]||'#6b7280';return `<span style="display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:600;background:${c}22;color:${c};border:1px solid ${c}44;">${p}</span>`;}
+function priBadge(p){const m={High:['#fb7185','rgba(244,63,94,.12)'],Medium:['#fcd34d','rgba(245,158,11,.12)'],Low:['#93c5fd','rgba(59,130,246,.12)']};const c=m[p]||m.Medium;return `<span style="padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;background:${c[1]};color:${c[0]};">${p}</span>`;}
+function statusBadge(s){if(s==='In progress')return '<span class="p-am">In progress</span>';if(s==='Not started')return '<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(99,102,241,.12);color:#a5b4fc;font-weight:600;">Not started</span>';return '<span class="p-up">Done</span>';}
+function renderTasks(filter){
+  const tb=document.getElementById('task-body');if(!tb)return;tb.innerHTML='';
+  const list=filter==='all'?TASKS:filter==='progress'?TASKS.filter(t=>t.status==='In progress'):TASKS.filter(t=>t.status==='Not started');
+  list.forEach((t,i)=>{
+    const done=t.status==='Done';
+    tb.innerHTML+=`<tr style="border-bottom:1px solid var(--b1);transition:background .15s;" onmouseenter="this.style.background='rgba(255,255,255,.03)'" onmouseleave="this.style.background='transparent'">
+      <td style="padding:10px 12px;"><div onclick="toggleTask(${TASKS.indexOf(t)})" style="width:16px;height:16px;border-radius:4px;border:1.5px solid ${done?'#7c3aed':'rgba(255,255,255,.2)'};cursor:pointer;display:flex;align-items:center;justify-content:center;background:${done?'rgba(124,58,237,.2)':'transparent'};">${done?'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}</div></td>
+      <td style="padding:10px 12px;font-weight:500;${done?'text-decoration:line-through;opacity:.4;':''}">${t.name}</td>
+      <td style="padding:10px 12px;">${projBadge(t.project)}</td>
+      <td style="padding:10px 12px;color:var(--t2);">${t.due}</td>
+      <td style="padding:10px 12px;">${priBadge(t.priority)}</td>
+      <td style="padding:10px 12px;">${statusBadge(t.status)}</td>
+    </tr>`;
+  });
+}
+function toggleTask(i){TASKS[i].status=TASKS[i].status==='Done'?'In progress':'Done';renderTasks(currentTaskFilter);updateTaskStats();}
+function updateTaskStats(){
+  const el=id=>document.getElementById(id);
+  if(el('task-total'))el('task-total').textContent=TASKS.length;
+  if(el('task-progress'))el('task-progress').textContent=TASKS.filter(t=>t.status==='In progress').length;
+  if(el('task-due'))el('task-due').textContent=TASKS.filter(t=>t.due==='28/03/2026').length;
+  if(el('task-high'))el('task-high').textContent=TASKS.filter(t=>t.priority==='High').length;
+}
+let currentTaskFilter='all';
+function taskFilter(f){currentTaskFilter=f;renderTasks(f);}
+function addTaskRow(){TASKS.push({name:"New task",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started"});renderTasks(currentTaskFilter);updateTaskStats();}
+/* init tasks on nav */
+const origNav=typeof nav==='function'?nav:null;
+</script>
 <script>
 const months=['Jan','Feb','Mar','Apr','May','Jun','Jul'];
 const nwD=[680,710,760,740,815,880,930];
@@ -1136,15 +1188,7 @@ const SC={
   hires:{r:'9.0 mo',c:'No',cc:'#fb7185',b:'+25%',bc:'#fb7185',p:50,n:'+3 hires in Q2 at current CAC. Burn increases significantly.'},
   growth:{r:'15.2 mo',c:'In 3 mo',cc:'#4ade80',b:'-5%',bc:'#4ade80',p:86,n:'+10% MoM revenue growth. Cash-positive in ~3 months.'}
 };
-function setScenario(k){
-  const s=SC[k];
-  const r=document.getElementById('sc-runway');if(r)r.textContent=s.r;
-  const c=document.getElementById('sc-cash');if(c){c.textContent=s.c;c.style.color=s.cc;}
-  const b=document.getElementById('sc-burn');if(b){b.textContent=s.b;b.style.color=s.bc;}
-  const bar=document.getElementById('sc-bar');if(bar){bar.style.width=s.p+'%';bar.style.background=s.p>70?'linear-gradient(90deg,#22c55e,#06b6d4)':s.p>50?'linear-gradient(90deg,#7c3aed,#2563eb)':'#f43f5e';}
-  const n=document.getElementById('sc-note');if(n)n.textContent=s.n;
-  ['base','hires','growth'].forEach(x=>{const t=document.getElementById('stab-'+x);if(t)t.classList.toggle('active',x===k);});
-}
+
 function setScenario2(k){
   const s=SC[k];
   const r=document.getElementById('ai-sc-runway');if(r)r.textContent=s.r;
@@ -1159,6 +1203,7 @@ function nav(id,el){
   const pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');
   if(el&&el.classList)el.classList.add('active');
   if(id==='overview')setTimeout(()=>{buildMain('nw');buildDonut();},40);
+  if(id==='tasks')setTimeout(()=>{renderTasks(currentTaskFilter);updateTaskStats();},40);
 }
 
 const aiR={
