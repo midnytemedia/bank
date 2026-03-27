@@ -280,8 +280,12 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
       <span class="ni-label">Payments</span>
       <span class="ni-badge">3</span>
     </div>
-    <div class="ni" onclick="nav('expenses',this)">
+    <div class="ni" onclick="nav('sales',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span class="ni-label">Sales</span>
+    </div>
+    <div class="ni" onclick="nav('expenses',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
       <span class="ni-label">Expenses</span>
       <span class="ni-badge amber">12</span>
     </div>
@@ -511,11 +515,11 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
   </div>
 </div>
 
-<!-- ══ EXPENSES ══ -->
-<div id="page-expenses" class="page">
+<!-- ══ SALES ══ -->
+<div id="page-sales" class="page">
   <!-- Invoice List View -->
   <div id="inv-list-view">
-    <div class="ph"><div class="ph-left"><div class="ph-eyebrow">Finance</div><div class="ph-title">Invoices</div></div><div class="ph-right"><button class="btn btn-primary btn-sm" onclick="showInvForm()">+ New Invoice</button><button class="btn btn-ghost btn-sm" onclick="showInvForm('credit')">+ Credit Note</button></div></div>
+    <div class="ph"><div class="ph-left"><div class="ph-eyebrow">Sales</div><div class="ph-title">Invoices</div></div><div class="ph-right"><button class="btn btn-primary btn-sm" onclick="showInvForm()">+ New Invoice</button><button class="btn btn-ghost btn-sm" onclick="showInvForm('credit')">+ Credit Note</button></div></div>
     <!-- Status filter pills -->
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
       <div style="position:relative;"><input id="inv-search" placeholder="Search invoices..." style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px 7px 30px;color:rgba(255,255,255,.85);font-size:11px;outline:none;width:160px;" oninput="renderInvList()"><svg style="position:absolute;left:9px;top:8px;width:13px;height:13px;color:var(--t2);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
@@ -546,7 +550,7 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
   <div id="inv-form-view" style="display:none;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
       <button onclick="hideInvForm()" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.6);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <div><div style="font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;">Finance</div><div style="font-size:18px;font-weight:700;" id="inv-form-title">New Invoice</div></div>
+      <div><div style="font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;">Sales</div><div style="font-size:18px;font-weight:700;" id="inv-form-title">New Invoice</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;">
       <!-- Main form -->
@@ -640,6 +644,37 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
   <!-- Invoice Preview Modal -->
   <div id="invoice-preview-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:999;overflow-y:auto;padding:40px;" onclick="if(event.target===this)this.style.display='none';">
     <div style="max-width:700px;margin:0 auto;background:white;border-radius:10px;overflow:hidden;" id="invoice-preview-content"></div>
+  </div>
+</div>
+
+<!-- ══ EXPENSES ══ -->
+<div id="page-expenses" class="page">
+  <div class="ph"><div class="ph-left"><div class="ph-eyebrow">Finance</div><div class="ph-title">Expenses</div></div><div class="ph-right"><button class="btn btn-ghost btn-sm">Export</button><button class="btn btn-primary btn-sm">+ New Expense</button></div></div>
+  <div class="g3">
+    <div class="stat-card" style="background:rgba(255,255,255,.03);border-color:var(--b1);"><div class="slbl">Auto-coded</div><div class="sv">84%</div><div class="ssub">Without manual work</div></div>
+    <div class="stat-card" style="background:rgba(255,255,255,.03);border-color:var(--b1);"><div class="slbl">Pending review</div><div class="sv" style="color:rgba(255,255,255,.7);">12</div><div class="ssub">Needs your attention</div></div>
+    <div class="stat-card" style="background:rgba(255,255,255,.03);border-color:var(--b1);"><div class="slbl">Saved by AI</div><div class="sv" style="color:rgba(255,255,255,.7);">€2,300</div><div class="ssub">This month</div></div>
+  </div>
+  <div class="g2b">
+    <div class="card"><div class="ct">Expense queue <span class="p-am">12 pending</span></div>
+      <div class="row"><div class="row-icon rd-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div><div class="row-main"><div class="row-name">Stripe fees not categorised</div><div class="row-meta">24 transactions · Today</div></div><div style="text-align:right;"><div class="row-amt">€1,240</div><button class="btn btn-ghost btn-sm" style="margin-top:4px;font-size:10px;padding:3px 8px;">Code</button></div></div>
+      <div class="row"><div class="row-icon am-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div class="row-main"><div class="row-name">AWS invoice missing receipt</div><div class="row-meta">Vendor · Review needed</div></div><div style="text-align:right;"><div class="row-amt">€842</div><button class="btn btn-ghost btn-sm" style="margin-top:4px;font-size:10px;padding:3px 8px;">Attach</button></div></div>
+      <div class="row"><div class="row-icon pu-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="row-main"><div class="row-name">Payroll accrual pending</div><div class="row-meta">Month-end close · Draft</div></div><div style="text-align:right;"><div class="row-amt">€18,400</div><button class="btn btn-primary btn-sm" style="margin-top:4px;font-size:10px;padding:3px 8px;">Approve</button></div></div>
+      <div class="row"><div class="row-icon cy-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16l-4-4 4-4m10 8l4-4-4-4"/></svg></div><div class="row-main"><div class="row-name">Intercompany transfer mismatch</div><div class="row-meta">Reconciliation needed</div></div><div style="text-align:right;"><div class="row-amt">€6,000</div><button class="btn btn-ghost btn-sm" style="margin-top:4px;font-size:10px;padding:3px 8px;">Fix</button></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="card"><div class="ct">Expense insights</div>
+        <div class="irow"><div class="iicon i-pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div><div style="font-size:12px;font-weight:600;">31 SaaS charges auto-coded</div><div style="font-size:11px;color:var(--t2);">98% confidence · No action needed</div></div></div>
+        <div class="irow"><div class="iicon i-rd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div><div style="font-size:12px;font-weight:600;">3 duplicate charges found</div><div style="font-size:11px;color:var(--t2);">Total €420 · Ready to dispute</div></div></div>
+        <div class="irow"><div class="iicon i-gr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div><div style="font-size:12px;font-weight:600;">Month-end in 3.2 days</div><div style="font-size:11px;color:var(--t2);">Down from 6.1 days last month</div></div></div>
+      </div>
+      <div class="card"><div class="ct">Close checklist</div>
+        <div class="row" style="padding:8px 0;"><div style="flex:1;font-size:12px;font-weight:500;">Bank reconciliation</div><span class="p-up">Complete</span></div>
+        <div class="row" style="padding:8px 0;"><div style="flex:1;font-size:12px;font-weight:500;">Card expense coding</div><span class="p-am">In progress</span></div>
+        <div class="row" style="padding:8px 0;"><div style="flex:1;font-size:12px;font-weight:500;">Accruals and prepaids</div><span style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(255,255,255,.08);color:var(--t2);">Pending</span></div>
+        <div class="row" style="padding:8px 0;"><div style="flex:1;font-size:12px;font-weight:500;">P&L and balance sheet</div><span style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(255,255,255,.08);color:var(--t2);">Pending</span></div>
+      </div>
+    </div>
   </div>
 </div>
 
