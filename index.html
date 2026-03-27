@@ -508,7 +508,7 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
 
 <!-- ══ EXPENSES ══ -->
 <div id="page-expenses" class="page">
-  <div class="ph"><div class="ph-left"><div class="ph-eyebrow">Finance</div><div class="ph-title">Expenses & Invoices</div></div><div class="ph-right"><button class="btn btn-ghost btn-sm">Export</button><button class="btn btn-primary btn-sm">+ New Expense</button></div></div>
+  <div class="ph"><div class="ph-left"><div class="ph-eyebrow">Finance</div><div class="ph-title">Expenses & Invoices</div></div><div class="ph-right"><button class="btn btn-ghost btn-sm">Export</button><button class="btn btn-ghost btn-sm" onclick="toggleInvoiceGen()">Create Invoice</button><button class="btn btn-primary btn-sm">+ New Expense</button></div></div>
   <div class="g3">
     <div class="stat-card" style="background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(37,99,235,.07));border-color:rgba(124,58,237,.2);"><div class="slbl">Auto-coded</div><div class="sv">84%</div><div class="ssub">Without manual work</div></div>
     <div class="stat-card" style="background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(244,63,94,.05));border-color:rgba(245,158,11,.18);"><div class="slbl">Pending review</div><div class="sv" style="color:#fcd34d;">12</div><div class="ssub">Needs your attention</div></div>
@@ -534,6 +534,81 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
         <div class="row" style="padding:8px 0;"><div style="flex:1;font-size:12px;font-weight:500;">P&L and balance sheet</div><span style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(255,255,255,.08);color:var(--t2);">Pending</span></div>
       </div>
     </div>
+  </div>
+
+  <!-- Invoice Generator -->
+  <div id="invoice-gen" style="display:none;">
+    <div class="card" style="border:1px solid rgba(255,255,255,.08);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <div class="ct" style="margin:0;">Invoice Generator</div>
+        <button onclick="toggleInvoiceGen()" style="background:none;border:none;color:var(--t2);cursor:pointer;font-size:16px;">✕</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <!-- From -->
+        <div>
+          <div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">From</div>
+          <input id="inv-from-name" placeholder="Your company name" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;margin-bottom:6px;" value="EDUVO LTD">
+          <input id="inv-from-email" placeholder="Email" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;margin-bottom:6px;" value="billing@eduvo.io">
+          <input id="inv-from-addr" placeholder="Address" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;">
+        </div>
+        <!-- To -->
+        <div>
+          <div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Bill To</div>
+          <input id="inv-to-name" placeholder="Client name" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;margin-bottom:6px;">
+          <input id="inv-to-email" placeholder="Client email" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;margin-bottom:6px;">
+          <input id="inv-to-addr" placeholder="Client address" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;">
+        </div>
+      </div>
+      <!-- Invoice details -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;">
+        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Invoice #</div><input id="inv-number" value="INV-001" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></div>
+        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Issue Date</div><input id="inv-date" type="date" value="2026-03-27" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></div>
+        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Due Date</div><input id="inv-due" type="date" value="2026-04-27" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></div>
+      </div>
+      <!-- Currency + VAT -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">
+        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Currency</div>
+          <select id="inv-currency" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;cursor:pointer;">
+            <option value="€" style="background:#1a1a2e;">€ EUR</option><option value="£" style="background:#1a1a2e;">£ GBP</option><option value="$" style="background:#1a1a2e;">$ USD</option><option value="DKK " style="background:#1a1a2e;">DKK</option>
+          </select>
+        </div>
+        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">VAT %</div><input id="inv-vat" type="number" value="25" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></div>
+      </div>
+      <!-- Line items -->
+      <div style="margin-top:16px;">
+        <div style="font-size:11px;color:var(--t2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em;">Line Items</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;" id="inv-items-table">
+          <thead><tr style="border-bottom:1px solid var(--b1);">
+            <th style="padding:8px 8px;text-align:left;color:var(--t2);font-weight:500;font-size:11px;">Description</th>
+            <th style="padding:8px 8px;text-align:left;color:var(--t2);font-weight:500;font-size:11px;width:60px;">Qty</th>
+            <th style="padding:8px 8px;text-align:left;color:var(--t2);font-weight:500;font-size:11px;width:90px;">Unit Price</th>
+            <th style="padding:8px 8px;text-align:right;color:var(--t2);font-weight:500;font-size:11px;width:80px;">Total</th>
+            <th style="width:32px;"></th>
+          </tr></thead>
+          <tbody id="inv-items-body"></tbody>
+        </table>
+        <button onclick="addInvItem()" style="background:rgba(255,255,255,.05);border:1px dashed rgba(255,255,255,.12);border-radius:6px;padding:7px 14px;color:var(--t2);font-size:11px;cursor:pointer;margin-top:8px;width:100%;">+ Add line item</button>
+      </div>
+      <!-- Totals -->
+      <div style="margin-top:16px;display:flex;justify-content:flex-end;">
+        <div style="min-width:220px;">
+          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:12px;color:var(--t2);"><span>Subtotal</span><span id="inv-subtotal" style="color:rgba(255,255,255,.8);">€0.00</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:12px;color:var(--t2);"><span>VAT (<span id="inv-vat-label">25</span>%)</span><span id="inv-vat-amt" style="color:rgba(255,255,255,.8);">€0.00</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:14px;font-weight:700;color:rgba(255,255,255,.9);border-top:1px solid var(--b1);margin-top:4px;"><span>Total</span><span id="inv-total">€0.00</span></div>
+        </div>
+      </div>
+      <!-- Notes + Actions -->
+      <div style="margin-top:14px;"><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Notes</div><textarea id="inv-notes" placeholder="Payment terms, bank details, thank you note..." style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;resize:vertical;min-height:50px;font-family:inherit;"></textarea></div>
+      <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end;">
+        <button class="btn btn-ghost btn-sm" onclick="previewInvoice()">Preview</button>
+        <button class="btn btn-primary btn-sm" onclick="downloadInvoice()">Download PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invoice Preview Modal -->
+  <div id="invoice-preview-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:999;overflow-y:auto;padding:40px;" onclick="if(event.target===this)this.style.display='none';">
+    <div style="max-width:700px;margin:0 auto;background:white;border-radius:10px;overflow:hidden;" id="invoice-preview-content"></div>
   </div>
 </div>
 
@@ -1155,6 +1230,88 @@ function updateTaskStats(){
   if(el('task-high'))el('task-high').textContent=TASKS.filter(t=>t.priority==='High').length;
 }
 function addTaskRow(){TASKS.push({name:"New task",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started"});renderTasks();}
+
+/* ── Invoice Generator ── */
+let invItems=[{desc:'',qty:1,price:0}];
+function toggleInvoiceGen(){const el=document.getElementById('invoice-gen');if(!el)return;el.style.display=el.style.display==='none'?'block':'none';if(el.style.display==='block')renderInvItems();}
+function addInvItem(){invItems.push({desc:'',qty:1,price:0});renderInvItems();}
+function removeInvItem(i){invItems.splice(i,1);if(invItems.length===0)invItems.push({desc:'',qty:1,price:0});renderInvItems();}
+function updateInvItem(i,field,val){invItems[i][field]=field==='desc'?val:parseFloat(val)||0;calcInvTotals();}
+function renderInvItems(){
+  const tb=document.getElementById('inv-items-body');if(!tb)return;tb.innerHTML='';
+  const cur=document.getElementById('inv-currency').value;
+  invItems.forEach((item,i)=>{
+    tb.innerHTML+=`<tr style="border-bottom:1px solid var(--b1);">
+      <td style="padding:6px 4px;"><input value="${item.desc}" onchange="updateInvItem(${i},'desc',this.value)" placeholder="Service or product" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:6px 8px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></td>
+      <td style="padding:6px 4px;"><input type="number" value="${item.qty}" min="1" onchange="updateInvItem(${i},'qty',this.value)" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:6px 8px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></td>
+      <td style="padding:6px 4px;"><input type="number" value="${item.price}" min="0" step="0.01" onchange="updateInvItem(${i},'price',this.value)" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:6px 8px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></td>
+      <td style="padding:6px 8px;text-align:right;color:rgba(255,255,255,.7);font-size:12px;">${cur}${(item.qty*item.price).toFixed(2)}</td>
+      <td style="padding:6px 4px;text-align:center;"><button onclick="removeInvItem(${i})" style="background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:14px;">✕</button></td>
+    </tr>`;
+  });
+  calcInvTotals();
+}
+function calcInvTotals(){
+  const cur=document.getElementById('inv-currency').value;
+  const vat=parseFloat(document.getElementById('inv-vat').value)||0;
+  const sub=invItems.reduce((s,it)=>s+(it.qty*it.price),0);
+  const vatAmt=sub*(vat/100);
+  const total=sub+vatAmt;
+  const el=id=>document.getElementById(id);
+  if(el('inv-subtotal'))el('inv-subtotal').textContent=cur+sub.toFixed(2);
+  if(el('inv-vat-label'))el('inv-vat-label').textContent=vat;
+  if(el('inv-vat-amt'))el('inv-vat-amt').textContent=cur+vatAmt.toFixed(2);
+  if(el('inv-total'))el('inv-total').textContent=cur+total.toFixed(2);
+}
+function getInvData(){
+  const v=id=>document.getElementById(id)?document.getElementById(id).value:'';
+  const cur=v('inv-currency');
+  const vat=parseFloat(v('inv-vat'))||0;
+  const sub=invItems.reduce((s,it)=>s+(it.qty*it.price),0);
+  const vatAmt=sub*(vat/100);
+  return {fromName:v('inv-from-name'),fromEmail:v('inv-from-email'),fromAddr:v('inv-from-addr'),toName:v('inv-to-name'),toEmail:v('inv-to-email'),toAddr:v('inv-to-addr'),number:v('inv-number'),date:v('inv-date'),due:v('inv-due'),cur,vat,items:invItems,sub,vatAmt,total:sub+vatAmt,notes:v('inv-notes')};
+}
+function buildInvoiceHTML(d){
+  const rows=d.items.map(it=>`<tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">${it.desc||'—'}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:center;">${it.qty}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${d.cur}${it.price.toFixed(2)}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${d.cur}${(it.qty*it.price).toFixed(2)}</td></tr>`).join('');
+  return `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a2e;padding:48px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;">
+      <div><div style="font-size:28px;font-weight:800;letter-spacing:-1px;color:#1a1a2e;">${d.fromName}</div><div style="font-size:12px;color:#666;margin-top:4px;">${d.fromEmail}</div><div style="font-size:12px;color:#666;">${d.fromAddr}</div></div>
+      <div style="text-align:right;"><div style="font-size:32px;font-weight:800;color:#7c3aed;letter-spacing:-1px;">INVOICE</div><div style="font-size:12px;color:#666;margin-top:4px;">${d.number}</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:32px;">
+      <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#999;margin-bottom:6px;">Bill To</div><div style="font-size:14px;font-weight:600;">${d.toName||'—'}</div><div style="font-size:12px;color:#666;">${d.toEmail}</div><div style="font-size:12px;color:#666;">${d.toAddr}</div></div>
+      <div style="text-align:right;"><div style="margin-bottom:8px;"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#999;">Issue Date</span><div style="font-size:13px;font-weight:500;">${d.date}</div></div><div><span style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#999;">Due Date</span><div style="font-size:13px;font-weight:500;">${d.due}</div></div></div>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;">
+      <thead><tr style="background:#f8f7ff;"><th style="padding:10px 12px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#666;">Description</th><th style="padding:10px 12px;text-align:center;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#666;">Qty</th><th style="padding:10px 12px;text-align:right;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#666;">Price</th><th style="padding:10px 12px;text-align:right;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#666;">Total</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="display:flex;justify-content:flex-end;">
+      <div style="min-width:240px;">
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:#666;"><span>Subtotal</span><span style="color:#1a1a2e;">${d.cur}${d.sub.toFixed(2)}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:#666;"><span>VAT (${d.vat}%)</span><span style="color:#1a1a2e;">${d.cur}${d.vatAmt.toFixed(2)}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 0;font-size:18px;font-weight:700;color:#1a1a2e;border-top:2px solid #1a1a2e;margin-top:6px;"><span>Total</span><span>${d.cur}${d.total.toFixed(2)}</span></div>
+      </div>
+    </div>
+    ${d.notes?`<div style="margin-top:32px;padding:16px;background:#f8f7ff;border-radius:8px;font-size:12px;color:#666;line-height:1.6;"><strong style="color:#1a1a2e;">Notes:</strong> ${d.notes}</div>`:''}
+    <div style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:10px;color:#999;text-align:center;">Generated by Eduvo · ${d.fromName}</div>
+  </div>`;
+}
+function previewInvoice(){
+  const d=getInvData();
+  const modal=document.getElementById('invoice-preview-modal');
+  const content=document.getElementById('invoice-preview-content');
+  if(!modal||!content)return;
+  content.innerHTML=buildInvoiceHTML(d)+`<div style="padding:16px;text-align:center;background:#f8f7ff;"><button onclick="downloadInvoice()" style="background:#7c3aed;color:white;border:none;border-radius:6px;padding:10px 24px;font-size:13px;font-weight:600;cursor:pointer;">Download PDF</button> <button onclick="document.getElementById('invoice-preview-modal').style.display='none'" style="background:transparent;color:#666;border:1px solid #ddd;border-radius:6px;padding:10px 24px;font-size:13px;cursor:pointer;margin-left:8px;">Close</button></div>`;
+  modal.style.display='block';
+}
+function downloadInvoice(){
+  const d=getInvData();
+  const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Invoice ${d.number}</title><style>@media print{body{margin:0;}}</style></head><body style="margin:0;padding:0;background:white;">${buildInvoiceHTML(d)}</body></html>`;
+  const w=window.open('','_blank','width=800,height=900');
+  w.document.write(html);w.document.close();
+  setTimeout(()=>{w.print();},400);
+}
 </script>
 <script>
 const months=['Jan','Feb','Mar','Apr','May','Jun','Jul'];
