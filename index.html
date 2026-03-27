@@ -110,6 +110,11 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
 .p-up{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;background:rgba(34,197,94,.12);color:#4ade80;}
 .p-dn{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;background:rgba(244,63,94,.12);color:#fb7185;}
 .p-am{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;background:rgba(245,158,11,.12);color:#fcd34d;}
+.inv-tab{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:6px 12px;color:var(--t2);font-size:11px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;}
+.inv-tab:hover{background:rgba(255,255,255,.07);}
+.inv-tab.active{background:rgba(124,58,237,.12);border-color:rgba(124,58,237,.25);color:#c4b5fd;}
+.inv-dot{width:7px;height:7px;border-radius:50%;display:inline-block;}
+.inv-count{background:rgba(255,255,255,.08);border-radius:99px;padding:1px 6px;font-size:10px;margin-left:2px;}
 .p-bl{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;background:rgba(37,99,235,.15);color:#93c5fd;}
 .p-pu{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;background:rgba(124,58,237,.15);color:#c4b5fd;}
 .p-cy{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;background:rgba(6,182,212,.12);color:#67e8f9;}
@@ -508,100 +513,126 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
 
 <!-- ══ EXPENSES ══ -->
 <div id="page-expenses" class="page">
-  <div class="ph"><div class="ph-left"><div class="ph-eyebrow">Finance</div><div class="ph-title">Expenses & Invoices</div></div><div class="ph-right"><button class="btn btn-ghost btn-sm">Export</button><button class="btn btn-ghost btn-sm" onclick="toggleInvoiceGen()">Create Invoice</button><button class="btn btn-primary btn-sm">+ New Expense</button></div></div>
-  <div class="g3">
-    <div class="stat-card" style="background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(37,99,235,.07));border-color:rgba(124,58,237,.2);"><div class="slbl">Auto-coded</div><div class="sv">84%</div><div class="ssub">Without manual work</div></div>
-    <div class="stat-card" style="background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(244,63,94,.05));border-color:rgba(245,158,11,.18);"><div class="slbl">Pending review</div><div class="sv" style="color:#fcd34d;">12</div><div class="ssub">Needs your attention</div></div>
-    <div class="stat-card" style="background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(6,182,212,.05));border-color:rgba(34,197,94,.18);"><div class="slbl">Saved by AI</div><div class="sv" style="color:#4ade80;">€2,300</div><div class="ssub">This month</div></div>
-  </div>
-  <div class="g2b">
-    <div class="card"><div class="ct">Expense queue <span class="p-am">12 pending</span></div>
-      <div class="row"><div class="row-icon rd-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div><div class="row-main"><div class="row-name">Stripe fees not categorised</div><div class="row-meta">24 transactions · Today</div></div><div style="text-align:right;"><div class="row-amt">€1,240</div><button class="btn btn-ghost btn-sm" style="margin-top:4px;font-size:10px;padding:3px 8px;">Code</button></div></div>
-      <div class="row"><div class="row-icon am-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div class="row-main"><div class="row-name">AWS invoice missing receipt</div><div class="row-meta">Vendor · Review needed</div></div><div style="text-align:right;"><div class="row-amt">€842</div><button class="btn btn-ghost btn-sm" style="margin-top:4px;font-size:10px;padding:3px 8px;">Attach</button></div></div>
-      <div class="row"><div class="row-icon pu-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="row-main"><div class="row-name">Payroll accrual pending</div><div class="row-meta">Month-end close · Draft</div></div><div style="text-align:right;"><div class="row-amt">€18,400</div><button class="btn btn-primary btn-sm" style="margin-top:4px;font-size:10px;padding:3px 8px;">Approve</button></div></div>
-      <div class="row"><div class="row-icon cy-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16l-4-4 4-4m10 8l4-4-4-4"/></svg></div><div class="row-main"><div class="row-name">Intercompany transfer mismatch</div><div class="row-meta">Reconciliation needed</div></div><div style="text-align:right;"><div class="row-amt">€6,000</div><button class="btn btn-ghost btn-sm" style="margin-top:4px;font-size:10px;padding:3px 8px;">Fix</button></div></div>
+  <!-- Invoice List View -->
+  <div id="inv-list-view">
+    <div class="ph"><div class="ph-left"><div class="ph-eyebrow">Finance</div><div class="ph-title">Invoices</div></div><div class="ph-right"><button class="btn btn-primary btn-sm" onclick="showInvForm()">+ New Invoice</button><button class="btn btn-ghost btn-sm" onclick="showInvForm('credit')">+ Credit Note</button></div></div>
+    <!-- Status filter pills -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+      <div style="position:relative;"><input id="inv-search" placeholder="Search invoices..." style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px 7px 30px;color:rgba(255,255,255,.85);font-size:11px;outline:none;width:160px;" oninput="renderInvList()"><svg style="position:absolute;left:9px;top:8px;width:13px;height:13px;color:var(--t2);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <button class="inv-tab active" onclick="setInvFilter('all',this)">All</button>
+      <button class="inv-tab" onclick="setInvFilter('Draft',this)"><span class="inv-dot" style="background:rgba(255,255,255,.3);"></span>Drafts <span class="inv-count" id="ic-Draft">0</span></button>
+      <button class="inv-tab" onclick="setInvFilter('Approved',this)"><span class="inv-dot" style="background:#4ade80;"></span>Approved <span class="inv-count" id="ic-Approved">0</span></button>
+      <button class="inv-tab" onclick="setInvFilter('Overdue',this)"><span class="inv-dot" style="background:#fb7185;"></span>Overdue <span class="inv-count" id="ic-Overdue">0</span></button>
+      <button class="inv-tab" onclick="setInvFilter('Paid',this)"><span class="inv-dot" style="background:#7c3aed;"></span>Paid <span class="inv-count" id="ic-Paid">0</span></button>
     </div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="card"><div class="ct">AI expense insights</div>
-        <div class="irow"><div class="iicon i-pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div><div style="font-size:12px;font-weight:600;">31 SaaS charges auto-coded</div><div style="font-size:11px;color:var(--t2);">98% confidence · No action needed</div></div></div>
-        <div class="irow"><div class="iicon i-rd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div><div style="font-size:12px;font-weight:600;">3 duplicate charges found</div><div style="font-size:11px;color:var(--t2);">Total €420 · Ready to dispute</div></div></div>
-        <div class="irow"><div class="iicon i-gr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div><div style="font-size:12px;font-weight:600;">Month-end in 3.2 days</div><div style="font-size:11px;color:var(--t2);">Down from 6.1 days last month</div></div></div>
-      </div>
-      <div class="card"><div class="ct">Close checklist</div>
-        <div class="row" style="padding:8px 0;"><div style="flex:1;font-size:12px;font-weight:500;">Bank reconciliation</div><span class="p-up">Complete</span></div>
-        <div class="row" style="padding:8px 0;"><div style="flex:1;font-size:12px;font-weight:500;">Card expense coding</div><span class="p-am">In progress</span></div>
-        <div class="row" style="padding:8px 0;"><div style="flex:1;font-size:12px;font-weight:500;">Accruals and prepaids</div><span style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(255,255,255,.08);color:var(--t2);">Pending</span></div>
-        <div class="row" style="padding:8px 0;"><div style="flex:1;font-size:12px;font-weight:500;">P&L and balance sheet</div><span style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(255,255,255,.08);color:var(--t2);">Pending</span></div>
-      </div>
+    <!-- Invoice table -->
+    <div class="card" style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead><tr style="border-bottom:1px solid var(--b1);text-align:left;">
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">#</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Date</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Due Date</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Description</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Customer</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;">Status</th>
+          <th style="padding:10px 12px;color:var(--t2);font-weight:500;font-size:11px;text-align:right;">Total</th>
+        </tr></thead>
+        <tbody id="inv-list-body"><tr><td colspan="7" style="padding:32px 12px;color:var(--t2);font-size:12px;">No invoices yet. Click "+ New Invoice" to create one.</td></tr></tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Invoice Generator -->
-  <div id="invoice-gen" style="display:none;">
-    <div class="card" style="border:1px solid rgba(255,255,255,.08);">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <div class="ct" style="margin:0;">Invoice Generator</div>
-        <button onclick="toggleInvoiceGen()" style="background:none;border:none;color:var(--t2);cursor:pointer;font-size:16px;">✕</button>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <!-- From -->
-        <div>
-          <div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">From</div>
-          <input id="inv-from-name" placeholder="Your company name" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;margin-bottom:6px;" value="EDUVO LTD">
-          <input id="inv-from-email" placeholder="Email" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;margin-bottom:6px;" value="billing@eduvo.io">
-          <input id="inv-from-addr" placeholder="Address" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;">
+  <!-- Invoice Form View (Dinero-style) -->
+  <div id="inv-form-view" style="display:none;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <button onclick="hideInvForm()" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.6);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div><div style="font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;">Finance</div><div style="font-size:18px;font-weight:700;" id="inv-form-title">New Invoice</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;">
+      <!-- Main form -->
+      <div class="card" style="border:1px solid rgba(255,255,255,.06);">
+        <!-- Contact -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:11px;color:var(--t2);margin-bottom:6px;">Contact</div>
+          <input id="inv-to-name" placeholder="— Select or type customer —" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:9px 12px;color:rgba(255,255,255,.85);font-size:13px;outline:none;">
         </div>
-        <!-- To -->
-        <div>
-          <div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Bill To</div>
-          <input id="inv-to-name" placeholder="Client name" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;margin-bottom:6px;">
-          <input id="inv-to-email" placeholder="Client email" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;margin-bottom:6px;">
-          <input id="inv-to-addr" placeholder="Client address" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;">
+        <!-- Company header -->
+        <div style="text-align:right;margin-bottom:24px;">
+          <div style="font-size:16px;font-weight:700;color:rgba(255,255,255,.9);" id="inv-company-display">Eduvo Denmark ApS</div>
         </div>
-      </div>
-      <!-- Invoice details -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;">
-        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Invoice #</div><input id="inv-number" value="INV-001" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></div>
-        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Issue Date</div><input id="inv-date" type="date" value="2026-03-27" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></div>
-        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Due Date</div><input id="inv-due" type="date" value="2026-04-27" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></div>
-      </div>
-      <!-- Currency + VAT -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">
-        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Currency</div>
-          <select id="inv-currency" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;cursor:pointer;">
-            <option value="€" style="background:#1a1a2e;">€ EUR</option><option value="£" style="background:#1a1a2e;">£ GBP</option><option value="$" style="background:#1a1a2e;">$ USD</option><option value="DKK " style="background:#1a1a2e;">DKK</option>
-          </select>
+        <!-- Date + Invoice # -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+          <div>
+            <div style="font-size:11px;color:var(--t2);margin-bottom:6px;">Date</div>
+            <input id="inv-date" type="date" value="2026-03-27" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 12px;color:rgba(255,255,255,.85);font-size:12px;outline:none;">
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:11px;color:var(--t2);margin-bottom:6px;">Invoice #</div>
+            <div style="font-size:22px;font-weight:700;color:rgba(255,255,255,.9);" id="inv-number-display">1</div>
+          </div>
         </div>
-        <div><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">VAT %</div><input id="inv-vat" type="number" value="25" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></div>
-      </div>
-      <!-- Line items -->
-      <div style="margin-top:16px;">
-        <div style="font-size:11px;color:var(--t2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em;">Line Items</div>
-        <table style="width:100%;border-collapse:collapse;font-size:12px;" id="inv-items-table">
+        <!-- Comments -->
+        <textarea id="inv-comments" placeholder="Enter any comments..." style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:9px 12px;color:rgba(255,255,255,.85);font-size:12px;outline:none;resize:vertical;min-height:60px;font-family:inherit;margin-bottom:20px;"></textarea>
+        <!-- Invoice title -->
+        <input id="inv-title" value="Invoice" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:9px 12px;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;outline:none;margin-bottom:16px;">
+        <!-- Line items table -->
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:8px;">
           <thead><tr style="border-bottom:1px solid var(--b1);">
             <th style="padding:8px 8px;text-align:left;color:var(--t2);font-weight:500;font-size:11px;">Description</th>
-            <th style="padding:8px 8px;text-align:left;color:var(--t2);font-weight:500;font-size:11px;width:60px;">Qty</th>
-            <th style="padding:8px 8px;text-align:left;color:var(--t2);font-weight:500;font-size:11px;width:90px;">Unit Price</th>
-            <th style="padding:8px 8px;text-align:right;color:var(--t2);font-weight:500;font-size:11px;width:80px;">Total</th>
-            <th style="width:32px;"></th>
+            <th style="padding:8px 8px;text-align:center;color:var(--t2);font-weight:500;font-size:11px;width:55px;">Qty</th>
+            <th style="padding:8px 8px;text-align:left;color:var(--t2);font-weight:500;font-size:11px;width:55px;">Unit</th>
+            <th style="padding:8px 8px;text-align:right;color:var(--t2);font-weight:500;font-size:11px;width:85px;">Unit Price</th>
+            <th style="padding:8px 8px;text-align:right;color:var(--t2);font-weight:500;font-size:11px;width:65px;">Discount</th>
+            <th style="padding:8px 8px;text-align:right;color:var(--t2);font-weight:500;font-size:11px;width:80px;">Price</th>
+            <th style="width:28px;"></th>
           </tr></thead>
           <tbody id="inv-items-body"></tbody>
         </table>
-        <button onclick="addInvItem()" style="background:rgba(255,255,255,.05);border:1px dashed rgba(255,255,255,.12);border-radius:6px;padding:7px 14px;color:var(--t2);font-size:11px;cursor:pointer;margin-top:8px;width:100%;">+ Add line item</button>
-      </div>
-      <!-- Totals -->
-      <div style="margin-top:16px;display:flex;justify-content:flex-end;">
-        <div style="min-width:220px;">
-          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:12px;color:var(--t2);"><span>Subtotal</span><span id="inv-subtotal" style="color:rgba(255,255,255,.8);">€0.00</span></div>
-          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:12px;color:var(--t2);"><span>VAT (<span id="inv-vat-label">25</span>%)</span><span id="inv-vat-amt" style="color:rgba(255,255,255,.8);">€0.00</span></div>
-          <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:14px;font-weight:700;color:rgba(255,255,255,.9);border-top:1px solid var(--b1);margin-top:4px;"><span>Total</span><span id="inv-total">€0.00</span></div>
+        <div style="display:flex;gap:12px;margin-bottom:20px;">
+          <button onclick="addInvItem()" style="background:none;border:none;color:#7c3aed;font-size:11px;cursor:pointer;padding:4px 0;">+ Add new line</button>
+        </div>
+        <!-- Totals -->
+        <div style="display:flex;justify-content:flex-end;">
+          <div style="min-width:260px;">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:12px;color:var(--t2);"><span>Subtotal</span><span id="inv-subtotal" style="color:rgba(255,255,255,.8);">0.00</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;font-size:16px;font-weight:700;color:rgba(255,255,255,.9);border-top:1px solid var(--b1);margin-top:4px;"><span>Total <span id="inv-cur-label" style="font-size:12px;color:var(--t2);">DKK</span></span><span id="inv-total">0.00</span></div>
+          </div>
+        </div>
+        <!-- Payment terms -->
+        <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,.02);border-radius:8px;border:1px solid rgba(255,255,255,.05);font-size:11px;color:var(--t2);line-height:1.7;">
+          <div>Payment terms: Net <select id="inv-net-days" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:2px 6px;color:rgba(255,255,255,.8);font-size:11px;outline:none;"><option value="8" style="background:#1a1a2e;">8</option><option value="14" style="background:#1a1a2e;">14</option><option value="30" style="background:#1a1a2e;" selected>30</option><option value="60" style="background:#1a1a2e;">60</option></select> days — Due date: <strong style="color:rgba(255,255,255,.7);" id="inv-due-display">27. April 2026</strong></div>
+          <div style="margin-top:6px;">Payment to bank account:</div>
+          <div>Bank / Reg. <input id="inv-bank-reg" placeholder="---" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:2px 6px;color:rgba(255,255,255,.8);font-size:11px;outline:none;width:50px;"> / Acct. <input id="inv-bank-acct" placeholder="---" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:2px 6px;color:rgba(255,255,255,.8);font-size:11px;outline:none;width:80px;"></div>
+          <div style="margin-top:4px;">Invoice # <span id="inv-ref-display">1</span> must be stated on bank transfer.</div>
+        </div>
+        <!-- Company footer -->
+        <div style="margin-top:20px;text-align:center;font-size:10px;color:rgba(255,255,255,.3);line-height:1.6;">
+          <strong>Eduvo Denmark ApS</strong> / Platanvej 20 / 7441 Bording<br>
+          CVR-nr. DK43123254 / Mail: mail@frederikfrifeldt.com
         </div>
       </div>
-      <!-- Notes + Actions -->
-      <div style="margin-top:14px;"><div style="font-size:11px;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Notes</div><textarea id="inv-notes" placeholder="Payment terms, bank details, thank you note..." style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:8px 10px;color:rgba(255,255,255,.85);font-size:12px;outline:none;resize:vertical;min-height:50px;font-family:inherit;"></textarea></div>
-      <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end;">
-        <button class="btn btn-ghost btn-sm" onclick="previewInvoice()">Preview</button>
-        <button class="btn btn-primary btn-sm" onclick="downloadInvoice()">Download PDF</button>
+      <!-- Side panel -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <button class="btn btn-ghost btn-sm" style="width:100%;border:1px solid rgba(255,255,255,.08);padding:10px;" onclick="saveInvDraft()">Save Draft</button>
+        <button class="btn btn-primary btn-sm" style="width:100%;padding:10px;" onclick="approveInvoice()">Approve</button>
+        <!-- Settings -->
+        <div class="card" style="border:1px solid rgba(255,255,255,.06);">
+          <div style="font-size:11px;color:var(--t2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em;">Settings</div>
+          <div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Currency</div>
+            <select id="inv-currency" onchange="calcInvTotals();renderInvItems();" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;cursor:pointer;">
+              <option value="DKK" style="background:#1a1a2e;">DKK</option><option value="EUR" style="background:#1a1a2e;">EUR</option><option value="GBP" style="background:#1a1a2e;">GBP</option><option value="USD" style="background:#1a1a2e;">USD</option>
+            </select>
+          </div>
+          <div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">VAT %</div>
+            <input id="inv-vat" type="number" value="25" onchange="calcInvTotals()" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;">
+          </div>
+          <div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Company Name</div>
+            <input id="inv-from-name" value="Eduvo Denmark ApS" onchange="document.getElementById('inv-company-display').textContent=this.value;" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;color:rgba(255,255,255,.85);font-size:11px;outline:none;">
+          </div>
+        </div>
+        <!-- Preview -->
+        <button class="btn btn-ghost btn-sm" style="width:100%;border:1px solid rgba(255,255,255,.08);padding:10px;" onclick="previewInvoice()">Preview Invoice</button>
+        <button class="btn btn-ghost btn-sm" style="width:100%;border:1px solid rgba(255,255,255,.08);padding:10px;" onclick="downloadInvoice()">Download PDF</button>
       </div>
     </div>
   </div>
@@ -1231,70 +1262,139 @@ function updateTaskStats(){
 }
 function addTaskRow(){TASKS.push({name:"New task",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started"});renderTasks();}
 
-/* ── Invoice Generator ── */
-let invItems=[{desc:'',qty:1,price:0}];
-function toggleInvoiceGen(){const el=document.getElementById('invoice-gen');if(!el)return;el.style.display=el.style.display==='none'?'block':'none';if(el.style.display==='block')renderInvItems();}
-function addInvItem(){invItems.push({desc:'',qty:1,price:0});renderInvItems();}
-function removeInvItem(i){invItems.splice(i,1);if(invItems.length===0)invItems.push({desc:'',qty:1,price:0});renderInvItems();}
-function updateInvItem(i,field,val){invItems[i][field]=field==='desc'?val:parseFloat(val)||0;calcInvTotals();}
+/* ── Invoice System ── */
+let invItems=[{desc:'',qty:1,unit:'pcs',price:0,discount:0}];
+let invoices=[];
+let invNextNum=1;
+let invFilter='all';
+const _is='background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:5px 7px;color:rgba(255,255,255,.85);font-size:11px;outline:none;';
+
+function showInvForm(type){
+  document.getElementById('inv-list-view').style.display='none';
+  document.getElementById('inv-form-view').style.display='block';
+  document.getElementById('inv-form-title').textContent=type==='credit'?'New Credit Note':'New Invoice';
+  invItems=[{desc:'',qty:1,unit:'pcs',price:0,discount:0}];
+  document.getElementById('inv-number-display').textContent=invNextNum;
+  document.getElementById('inv-ref-display').textContent=invNextNum;
+  document.getElementById('inv-to-name').value='';
+  document.getElementById('inv-comments').value='';
+  renderInvItems();
+}
+function hideInvForm(){
+  document.getElementById('inv-list-view').style.display='block';
+  document.getElementById('inv-form-view').style.display='none';
+  renderInvList();
+}
+function addInvItem(){invItems.push({desc:'',qty:1,unit:'pcs',price:0,discount:0});renderInvItems();}
+function removeInvItem(i){invItems.splice(i,1);if(invItems.length===0)invItems.push({desc:'',qty:1,unit:'pcs',price:0,discount:0});renderInvItems();}
+function updateInvItem(i,field,val){invItems[i][field]=(field==='desc'||field==='unit')?val:parseFloat(val)||0;calcInvTotals();renderInvItems();}
 function renderInvItems(){
   const tb=document.getElementById('inv-items-body');if(!tb)return;tb.innerHTML='';
   const cur=document.getElementById('inv-currency').value;
   invItems.forEach((item,i)=>{
+    const lineTotal=item.qty*item.price*(1-item.discount/100);
     tb.innerHTML+=`<tr style="border-bottom:1px solid var(--b1);">
-      <td style="padding:6px 4px;"><input value="${item.desc}" onchange="updateInvItem(${i},'desc',this.value)" placeholder="Service or product" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:6px 8px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></td>
-      <td style="padding:6px 4px;"><input type="number" value="${item.qty}" min="1" onchange="updateInvItem(${i},'qty',this.value)" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:6px 8px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></td>
-      <td style="padding:6px 4px;"><input type="number" value="${item.price}" min="0" step="0.01" onchange="updateInvItem(${i},'price',this.value)" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:6px 8px;color:rgba(255,255,255,.85);font-size:12px;outline:none;"></td>
-      <td style="padding:6px 8px;text-align:right;color:rgba(255,255,255,.7);font-size:12px;">${cur}${(item.qty*item.price).toFixed(2)}</td>
-      <td style="padding:6px 4px;text-align:center;"><button onclick="removeInvItem(${i})" style="background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:14px;">✕</button></td>
+      <td style="padding:5px 4px;"><input value="${item.desc}" onchange="updateInvItem(${i},'desc',this.value)" placeholder="Description" style="${_is}width:100%;"></td>
+      <td style="padding:5px 4px;"><input type="number" value="${item.qty}" min="1" step="0.01" onchange="updateInvItem(${i},'qty',this.value)" style="${_is}width:100%;text-align:center;"></td>
+      <td style="padding:5px 4px;"><select onchange="updateInvItem(${i},'unit',this.value)" style="${_is}width:100%;cursor:pointer;"><option value="pcs" ${item.unit==='pcs'?'selected':''} style="background:#1a1a2e;">pcs</option><option value="hrs" ${item.unit==='hrs'?'selected':''} style="background:#1a1a2e;">hrs</option><option value="days" ${item.unit==='days'?'selected':''} style="background:#1a1a2e;">days</option><option value="kg" ${item.unit==='kg'?'selected':''} style="background:#1a1a2e;">kg</option></select></td>
+      <td style="padding:5px 4px;"><input type="number" value="${item.price}" min="0" step="0.01" onchange="updateInvItem(${i},'price',this.value)" style="${_is}width:100%;text-align:right;"></td>
+      <td style="padding:5px 4px;"><input type="number" value="${item.discount}" min="0" max="100" step="0.01" onchange="updateInvItem(${i},'discount',this.value)" style="${_is}width:100%;text-align:right;" placeholder="0%"></td>
+      <td style="padding:5px 8px;text-align:right;color:rgba(255,255,255,.7);font-size:12px;white-space:nowrap;">${lineTotal.toFixed(2)}</td>
+      <td style="padding:5px 2px;text-align:center;"><button onclick="removeInvItem(${i})" style="background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:13px;">✕</button></td>
     </tr>`;
   });
   calcInvTotals();
 }
 function calcInvTotals(){
-  const cur=document.getElementById('inv-currency').value;
-  const vat=parseFloat(document.getElementById('inv-vat').value)||0;
-  const sub=invItems.reduce((s,it)=>s+(it.qty*it.price),0);
-  const vatAmt=sub*(vat/100);
-  const total=sub+vatAmt;
+  const cur=(document.getElementById('inv-currency')||{}).value||'DKK';
+  const vat=parseFloat((document.getElementById('inv-vat')||{}).value)||0;
+  const sub=invItems.reduce((s,it)=>s+it.qty*it.price*(1-it.discount/100),0);
+  const total=sub*(1+vat/100);
   const el=id=>document.getElementById(id);
-  if(el('inv-subtotal'))el('inv-subtotal').textContent=cur+sub.toFixed(2);
-  if(el('inv-vat-label'))el('inv-vat-label').textContent=vat;
-  if(el('inv-vat-amt'))el('inv-vat-amt').textContent=cur+vatAmt.toFixed(2);
-  if(el('inv-total'))el('inv-total').textContent=cur+total.toFixed(2);
+  if(el('inv-subtotal'))el('inv-subtotal').textContent=sub.toFixed(2);
+  if(el('inv-total'))el('inv-total').textContent=total.toFixed(2);
+  if(el('inv-cur-label'))el('inv-cur-label').textContent=cur;
+}
+function saveInvDraft(){
+  const d=getInvData();d.status='Draft';
+  invoices.push(d);invNextNum++;hideInvForm();
+}
+function approveInvoice(){
+  const d=getInvData();d.status='Approved';
+  invoices.push(d);invNextNum++;hideInvForm();
+}
+function setInvFilter(f,btn){
+  invFilter=f;
+  document.querySelectorAll('.inv-tab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  renderInvList();
+}
+function renderInvList(){
+  const tb=document.getElementById('inv-list-body');if(!tb)return;
+  const search=(document.getElementById('inv-search')||{}).value||'';
+  let list=invoices;
+  if(invFilter!=='all')list=list.filter(iv=>iv.status===invFilter);
+  if(search)list=list.filter(iv=>(iv.customer+iv.desc+iv.number).toLowerCase().includes(search.toLowerCase()));
+  // update counts
+  ['Draft','Approved','Overdue','Paid'].forEach(s=>{const el=document.getElementById('ic-'+s);if(el)el.textContent=invoices.filter(iv=>iv.status===s).length;});
+  if(list.length===0){tb.innerHTML='<tr><td colspan="7" style="padding:32px 12px;color:var(--t2);font-size:12px;">No invoices found.</td></tr>';return;}
+  tb.innerHTML='';
+  list.forEach(iv=>{
+    const stMap={Draft:['rgba(255,255,255,.08)','rgba(255,255,255,.5)'],Approved:['rgba(74,222,128,.1)','#4ade80'],Overdue:['rgba(251,113,133,.1)','#fb7185'],Paid:['rgba(124,58,237,.1)','#c4b5fd']};
+    const sc=stMap[iv.status]||stMap.Draft;
+    tb.innerHTML+=`<tr style="border-bottom:1px solid var(--b1);cursor:pointer;transition:background .15s;" onmouseenter="this.style.background='rgba(255,255,255,.02)'" onmouseleave="this.style.background='transparent'">
+      <td style="padding:10px 12px;color:rgba(255,255,255,.7);">${iv.number}</td>
+      <td style="padding:10px 12px;color:var(--t2);">${iv.date}</td>
+      <td style="padding:10px 12px;color:var(--t2);">${iv.due}</td>
+      <td style="padding:10px 12px;color:rgba(255,255,255,.8);">${iv.desc||'Invoice'}</td>
+      <td style="padding:10px 12px;color:rgba(255,255,255,.7);">${iv.customer||'—'}</td>
+      <td style="padding:10px 12px;"><span style="font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600;background:${sc[0]};color:${sc[1]};">${iv.status}</span></td>
+      <td style="padding:10px 12px;text-align:right;font-weight:600;color:rgba(255,255,255,.85);">${iv.cur} ${iv.total.toFixed(2)}</td>
+    </tr>`;
+  });
 }
 function getInvData(){
-  const v=id=>document.getElementById(id)?document.getElementById(id).value:'';
+  const v=id=>(document.getElementById(id)||{}).value||'';
   const cur=v('inv-currency');
   const vat=parseFloat(v('inv-vat'))||0;
-  const sub=invItems.reduce((s,it)=>s+(it.qty*it.price),0);
-  const vatAmt=sub*(vat/100);
-  return {fromName:v('inv-from-name'),fromEmail:v('inv-from-email'),fromAddr:v('inv-from-addr'),toName:v('inv-to-name'),toEmail:v('inv-to-email'),toAddr:v('inv-to-addr'),number:v('inv-number'),date:v('inv-date'),due:v('inv-due'),cur,vat,items:invItems,sub,vatAmt,total:sub+vatAmt,notes:v('inv-notes')};
+  const sub=invItems.reduce((s,it)=>s+it.qty*it.price*(1-it.discount/100),0);
+  const total=sub*(1+vat/100);
+  const dateVal=v('inv-date');
+  const netDays=parseInt(v('inv-net-days'))||30;
+  const dueDate=new Date(dateVal);dueDate.setDate(dueDate.getDate()+netDays);
+  const dueStr=dueDate.toISOString().split('T')[0];
+  return {number:invNextNum,fromName:v('inv-from-name'),customer:v('inv-to-name'),date:dateVal,due:dueStr,cur,vat,items:[...invItems.map(it=>({...it}))],sub,total,desc:v('inv-title'),notes:v('inv-comments'),bankReg:v('inv-bank-reg'),bankAcct:v('inv-bank-acct'),netDays,status:'Draft'};
 }
 function buildInvoiceHTML(d){
-  const rows=d.items.map(it=>`<tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">${it.desc||'—'}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:center;">${it.qty}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${d.cur}${it.price.toFixed(2)}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${d.cur}${(it.qty*it.price).toFixed(2)}</td></tr>`).join('');
+  const sym={DKK:'DKK ',EUR:'€',GBP:'£',USD:'$'}[d.cur]||d.cur+' ';
+  const rows=d.items.map(it=>{const lt=it.qty*it.price*(1-(it.discount||0)/100);return `<tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">${it.desc||'—'}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:center;">${it.qty}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:center;">${it.unit||'pcs'}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${sym}${it.price.toFixed(2)}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${it.discount||0}%</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">${sym}${lt.toFixed(2)}</td></tr>`;}).join('');
   return `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a2e;padding:48px;">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;">
-      <div><div style="font-size:28px;font-weight:800;letter-spacing:-1px;color:#1a1a2e;">${d.fromName}</div><div style="font-size:12px;color:#666;margin-top:4px;">${d.fromEmail}</div><div style="font-size:12px;color:#666;">${d.fromAddr}</div></div>
-      <div style="text-align:right;"><div style="font-size:32px;font-weight:800;color:#7c3aed;letter-spacing:-1px;">INVOICE</div><div style="font-size:12px;color:#666;margin-top:4px;">${d.number}</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;">
+      <div style="font-size:10px;color:#999;">INVOICE TO<div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-top:4px;">${d.customer||'—'}</div></div>
+      <div style="text-align:right;"><div style="font-size:18px;font-weight:800;color:#1a1a2e;">${d.fromName}</div></div>
     </div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:32px;">
-      <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#999;margin-bottom:6px;">Bill To</div><div style="font-size:14px;font-weight:600;">${d.toName||'—'}</div><div style="font-size:12px;color:#666;">${d.toEmail}</div><div style="font-size:12px;color:#666;">${d.toAddr}</div></div>
-      <div style="text-align:right;"><div style="margin-bottom:8px;"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#999;">Issue Date</span><div style="font-size:13px;font-weight:500;">${d.date}</div></div><div><span style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#999;">Due Date</span><div style="font-size:13px;font-weight:500;">${d.due}</div></div></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:28px;">
+      <div><div style="font-size:10px;color:#999;">DATE</div><div style="font-size:13px;margin-top:2px;">${d.date}</div></div>
+      <div style="text-align:right;"><div style="font-size:10px;color:#999;">INVOICE #</div><div style="font-size:22px;font-weight:700;margin-top:2px;">${d.number}</div></div>
     </div>
-    <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;">
-      <thead><tr style="background:#f8f7ff;"><th style="padding:10px 12px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#666;">Description</th><th style="padding:10px 12px;text-align:center;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#666;">Qty</th><th style="padding:10px 12px;text-align:right;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#666;">Price</th><th style="padding:10px 12px;text-align:right;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#666;">Total</th></tr></thead>
+    ${d.notes?`<div style="padding:12px 16px;background:#f8f8fa;border-radius:6px;margin-bottom:20px;font-size:12px;color:#666;line-height:1.6;">${d.notes}</div>`:''}
+    <div style="font-size:14px;font-weight:600;margin-bottom:12px;">${d.desc||'Invoice'}</div>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:24px;">
+      <thead><tr style="background:#f8f8fa;"><th style="padding:8px 12px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase;color:#999;">Description</th><th style="padding:8px 12px;text-align:center;font-weight:600;font-size:10px;text-transform:uppercase;color:#999;">Qty</th><th style="padding:8px 12px;text-align:center;font-weight:600;font-size:10px;text-transform:uppercase;color:#999;">Unit</th><th style="padding:8px 12px;text-align:right;font-weight:600;font-size:10px;text-transform:uppercase;color:#999;">Unit Price</th><th style="padding:8px 12px;text-align:right;font-weight:600;font-size:10px;text-transform:uppercase;color:#999;">Discount</th><th style="padding:8px 12px;text-align:right;font-weight:600;font-size:10px;text-transform:uppercase;color:#999;">Price</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>
     <div style="display:flex;justify-content:flex-end;">
       <div style="min-width:240px;">
-        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:#666;"><span>Subtotal</span><span style="color:#1a1a2e;">${d.cur}${d.sub.toFixed(2)}</span></div>
-        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:#666;"><span>VAT (${d.vat}%)</span><span style="color:#1a1a2e;">${d.cur}${d.vatAmt.toFixed(2)}</span></div>
-        <div style="display:flex;justify-content:space-between;padding:10px 0;font-size:18px;font-weight:700;color:#1a1a2e;border-top:2px solid #1a1a2e;margin-top:6px;"><span>Total</span><span>${d.cur}${d.total.toFixed(2)}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:12px;color:#666;"><span>Subtotal</span><span>${sym}${d.sub.toFixed(2)}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 0;font-size:16px;font-weight:700;border-top:2px solid #1a1a2e;margin-top:4px;"><span>Total ${d.cur}</span><span>${sym}${d.total.toFixed(2)}</span></div>
       </div>
     </div>
-    ${d.notes?`<div style="margin-top:32px;padding:16px;background:#f8f7ff;border-radius:8px;font-size:12px;color:#666;line-height:1.6;"><strong style="color:#1a1a2e;">Notes:</strong> ${d.notes}</div>`:''}
-    <div style="margin-top:40px;padding-top:16px;border-top:1px solid #eee;font-size:10px;color:#999;text-align:center;">Generated by Eduvo · ${d.fromName}</div>
+    <div style="margin-top:28px;font-size:11px;color:#888;line-height:1.7;">
+      <div>Payment terms: Net ${d.netDays} days — Due date: <strong style="color:#1a1a2e;">${d.due}</strong></div>
+      ${d.bankReg||d.bankAcct?`<div>Bank / Reg. ${d.bankReg||'—'} / Acct. ${d.bankAcct||'—'}</div>`:''}
+      <div>Invoice # ${d.number} must be stated on bank transfer.</div>
+    </div>
+    <div style="margin-top:32px;text-align:center;font-size:9px;color:#bbb;"><strong>${d.fromName}</strong> / Platanvej 20 / 7441 Bording · CVR-nr. DK43123254 · mail@frederikfrifeldt.com</div>
   </div>`;
 }
 function previewInvoice(){
@@ -1302,7 +1402,7 @@ function previewInvoice(){
   const modal=document.getElementById('invoice-preview-modal');
   const content=document.getElementById('invoice-preview-content');
   if(!modal||!content)return;
-  content.innerHTML=buildInvoiceHTML(d)+`<div style="padding:16px;text-align:center;background:#f8f7ff;"><button onclick="downloadInvoice()" style="background:#7c3aed;color:white;border:none;border-radius:6px;padding:10px 24px;font-size:13px;font-weight:600;cursor:pointer;">Download PDF</button> <button onclick="document.getElementById('invoice-preview-modal').style.display='none'" style="background:transparent;color:#666;border:1px solid #ddd;border-radius:6px;padding:10px 24px;font-size:13px;cursor:pointer;margin-left:8px;">Close</button></div>`;
+  content.innerHTML=buildInvoiceHTML(d)+`<div style="padding:16px;text-align:center;background:#f8f8fa;"><button onclick="downloadInvoice()" style="background:#1a1a2e;color:white;border:none;border-radius:6px;padding:10px 24px;font-size:12px;font-weight:600;cursor:pointer;">Download PDF</button> <button onclick="document.getElementById('invoice-preview-modal').style.display='none'" style="background:transparent;color:#666;border:1px solid #ddd;border-radius:6px;padding:10px 24px;font-size:12px;cursor:pointer;margin-left:8px;">Close</button></div>`;
   modal.style.display='block';
 }
 function downloadInvoice(){
