@@ -1038,27 +1038,33 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
 <!-- ══ TASKS ══ -->
 <div id="page-tasks" class="page">
   <div class="ph"><div class="ph-left"><div class="ph-eyebrow">Productivity</div><div class="ph-title">Business Tasks</div></div><div class="ph-right"><button class="btn btn-primary btn-sm" onclick="addTaskRow()">+ New Task</button></div></div>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;" id="task-filters">
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskProjectFilter('all')" id="tf-all">All Projects</button>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskProjectFilter('MIDNYTE')" id="tf-MIDNYTE">MIDNYTE</button>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskProjectFilter('World Medical Card')" id="tf-World Medical Card">World Medical Card</button>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskProjectFilter('Content')" id="tf-Content">Content</button>
-    <span style="width:1px;background:var(--b1);margin:0 4px;"></span>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskStatusFilter('all')" id="tsf-all">All Status</button>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskStatusFilter('In progress')" id="tsf-In progress">In progress</button>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskStatusFilter('Not started')" id="tsf-Not started">Not started</button>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskStatusFilter('Done')" id="tsf-Done">Done</button>
-    <span style="width:1px;background:var(--b1);margin:0 4px;"></span>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskPriorityFilter('all')" id="tpf-all">All Priority</button>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskPriorityFilter('High')" id="tpf-High">High</button>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskPriorityFilter('Medium')" id="tpf-Medium">Medium</button>
-    <button class="btn btn-ghost btn-sm" style="border:1px solid var(--b1);" onclick="setTaskPriorityFilter('Low')" id="tpf-Low">Low</button>
-  </div>
   <div class="g4">
-    <div class="stat-card" style="background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(37,99,235,.07));border-color:rgba(124,58,237,.2);"><div class="slbl">Total tasks</div><div class="sv" id="task-total">15</div><div class="ssub">Across all projects</div></div>
-    <div class="stat-card" style="background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(244,63,94,.05));border-color:rgba(245,158,11,.18);"><div class="slbl">In progress</div><div class="sv" style="color:#fcd34d;" id="task-progress">8</div><div class="ssub">Currently active</div></div>
-    <div class="stat-card" style="background:linear-gradient(135deg,rgba(244,63,94,.1),rgba(245,158,11,.05));border-color:rgba(244,63,94,.2);"><div class="slbl">Due today</div><div class="sv" style="color:#fb7185;" id="task-due">7</div><div class="ssub">Needs attention</div></div>
-    <div class="stat-card" style="background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(6,182,212,.05));border-color:rgba(34,197,94,.18);"><div class="slbl">High priority</div><div class="sv" style="color:#4ade80;" id="task-high">6</div><div class="ssub">Focus items</div></div>
+    <div class="stat-card" style="background:rgba(255,255,255,.03);border-color:var(--b1);"><div class="slbl">Total tasks</div><div class="sv" id="task-total">13</div><div class="ssub">Across all projects</div></div>
+    <div class="stat-card" style="background:rgba(255,255,255,.03);border-color:var(--b1);"><div class="slbl">In progress</div><div class="sv" style="color:rgba(255,255,255,.7);" id="task-progress">7</div><div class="ssub">Currently active</div></div>
+    <div class="stat-card" style="background:rgba(255,255,255,.03);border-color:var(--b1);"><div class="slbl">Due this week</div><div class="sv" style="color:rgba(255,255,255,.7);" id="task-due">7</div><div class="ssub">Needs attention</div></div>
+    <div class="stat-card" style="background:rgba(255,255,255,.03);border-color:var(--b1);"><div class="slbl">High priority</div><div class="sv" style="color:rgba(255,255,255,.7);" id="task-high">6</div><div class="ssub">Focus items</div></div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center;">
+    <span style="font-size:11px;color:var(--t2);margin-right:4px;">Filters</span>
+    <select id="tf-project" onchange="taskProjectFilter=this.value;renderTasks();" style="background:rgba(255,255,255,.05);border:1px solid var(--b1);border-radius:6px;padding:5px 10px;color:rgba(255,255,255,.8);font-size:11px;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;">
+      <option value="all" style="background:#1a1a2e;">All Projects</option>
+      <option value="MIDNYTE" style="background:#1a1a2e;">MIDNYTE</option>
+      <option value="World Medical Card" style="background:#1a1a2e;">World Medical Card</option>
+      <option value="Content" style="background:#1a1a2e;">Content</option>
+    </select>
+    <select id="tf-status" onchange="taskStatusFilter=this.value;renderTasks();" style="background:rgba(255,255,255,.05);border:1px solid var(--b1);border-radius:6px;padding:5px 10px;color:rgba(255,255,255,.8);font-size:11px;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;">
+      <option value="all" style="background:#1a1a2e;">All Status</option>
+      <option value="In progress" style="background:#1a1a2e;">In progress</option>
+      <option value="Not started" style="background:#1a1a2e;">Not started</option>
+      <option value="Done" style="background:#1a1a2e;">Done</option>
+    </select>
+    <select id="tf-priority" onchange="taskPriorityFilter=this.value;renderTasks();" style="background:rgba(255,255,255,.05);border:1px solid var(--b1);border-radius:6px;padding:5px 10px;color:rgba(255,255,255,.8);font-size:11px;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;">
+      <option value="all" style="background:#1a1a2e;">All Priority</option>
+      <option value="High" style="background:#1a1a2e;">High</option>
+      <option value="Medium" style="background:#1a1a2e;">Medium</option>
+      <option value="Low" style="background:#1a1a2e;">Low</option>
+    </select>
+    <button onclick="taskProjectFilter='all';taskStatusFilter='all';taskPriorityFilter='all';document.getElementById('tf-project').value='all';document.getElementById('tf-status').value='all';document.getElementById('tf-priority').value='all';renderTasks();" style="background:none;border:none;color:var(--t2);font-size:11px;cursor:pointer;padding:5px 8px;text-decoration:underline;">Clear</button>
   </div>
   <div class="card" style="overflow-x:auto;">
     <table style="width:100%;border-collapse:collapse;font-size:12px;" id="task-table">
@@ -1097,31 +1103,26 @@ const TASKS=[
   {name:"Casino traffic from Taboola",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started"},
   {name:"Cancel Azure",project:"World Medical Card",due:"04/04/2026",priority:"Medium",status:"Not started"},
 ];
-const projColors={"Content":"#7c3aed","World Medical Card":"#2563eb","MIDNYTE":"#f43f5e"};
 const PRIORITIES=['High','Medium','Low'];
 const STATUSES=['Not started','In progress','Done'];
 const PROJECTS=['MIDNYTE','World Medical Card','Content'];
+const _sel='background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:2px 6px;color:rgba(255,255,255,.8);font-size:10px;font-weight:500;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;';
 
 let taskProjectFilter='all';
 let taskStatusFilter='all';
 let taskPriorityFilter='all';
 
-function projBadge(p,idx){const c=projColors[p]||'#6b7280';return `<span onclick="cycleProject(${idx})" style="display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:600;background:${c}22;color:${c};border:1px solid ${c}44;cursor:pointer;" title="Click to change">${p}</span>`;}
-function priBadge(p,idx){const m={High:['#fb7185','rgba(244,63,94,.12)'],Medium:['#fcd34d','rgba(245,158,11,.12)'],Low:['#93c5fd','rgba(59,130,246,.12)']};const c=m[p]||m.Medium;return `<span onclick="cyclePriority(${idx})" style="padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;background:${c[1]};color:${c[0]};cursor:pointer;" title="Click to change">${p}</span>`;}
-function statusBadge(s,idx){const click=`onclick="cycleStatus(${idx})" style="cursor:pointer;" title="Click to change"`;if(s==='In progress')return `<span class="p-am" ${click}>In progress</span>`;if(s==='Not started')return `<span ${click} style="font-size:10px;padding:2px 7px;border-radius:99px;background:rgba(99,102,241,.12);color:#a5b4fc;font-weight:600;cursor:pointer;" title="Click to change">Not started</span>`;return `<span class="p-up" ${click}>Done</span>`;}
-
-function cycleProject(i){const cur=PROJECTS.indexOf(TASKS[i].project);TASKS[i].project=PROJECTS[(cur+1)%PROJECTS.length];renderTasks();updateTaskStats();}
-function cyclePriority(i){const cur=PRIORITIES.indexOf(TASKS[i].priority);TASKS[i].priority=PRIORITIES[(cur+1)%PRIORITIES.length];renderTasks();updateTaskStats();}
-function cycleStatus(i){const cur=STATUSES.indexOf(TASKS[i].status);TASKS[i].status=STATUSES[(cur+1)%STATUSES.length];renderTasks();updateTaskStats();}
-
-function highlightFilters(){
-  document.querySelectorAll('#task-filters button').forEach(b=>{b.style.background='transparent';b.style.color='var(--t2)';});
-  const hp=(id)=>{const el=document.getElementById(id);if(el){el.style.background='rgba(124,58,237,.15)';el.style.color='#c4b5fd';}};
-  hp('tf-'+taskProjectFilter);hp('tsf-'+taskStatusFilter);hp('tpf-'+taskPriorityFilter);
+function projSelect(idx,cur){
+  return `<select onchange="TASKS[${idx}].project=this.value;renderTasks();updateTaskStats();" style="${_sel}">${PROJECTS.map(p=>`<option value="${p}" style="background:#1a1a2e;" ${p===cur?'selected':''}>${p}</option>`).join('')}</select>`;
 }
-function setTaskProjectFilter(f){taskProjectFilter=f;renderTasks();highlightFilters();}
-function setTaskStatusFilter(f){taskStatusFilter=f;renderTasks();highlightFilters();}
-function setTaskPriorityFilter(f){taskPriorityFilter=f;renderTasks();highlightFilters();}
+function priSelect(idx,cur){
+  const cols={High:'rgba(255,255,255,.9)',Medium:'rgba(255,255,255,.6)',Low:'rgba(255,255,255,.4)'};
+  return `<select onchange="TASKS[${idx}].priority=this.value;renderTasks();updateTaskStats();" style="${_sel}color:${cols[cur]||cols.Medium};">${PRIORITIES.map(p=>`<option value="${p}" style="background:#1a1a2e;" ${p===cur?'selected':''}>${p}</option>`).join('')}</select>`;
+}
+function statusSelect(idx,cur){
+  const cols={'In progress':'#c4b5fd','Not started':'rgba(255,255,255,.5)','Done':'rgba(255,255,255,.35)'};
+  return `<select onchange="TASKS[${idx}].status=this.value;renderTasks();updateTaskStats();" style="${_sel}color:${cols[cur]||'rgba(255,255,255,.5)'};">${STATUSES.map(s=>`<option value="${s}" style="background:#1a1a2e;" ${s===cur?'selected':''}>${s}</option>`).join('')}</select>`;
+}
 
 function renderTasks(){
   const tb=document.getElementById('task-body');if(!tb)return;tb.innerHTML='';
@@ -1132,20 +1133,20 @@ function renderTasks(){
   list.forEach((t)=>{
     const idx=TASKS.indexOf(t);
     const done=t.status==='Done';
-    tb.innerHTML+=`<tr style="border-bottom:1px solid var(--b1);transition:background .15s;" onmouseenter="this.style.background='rgba(255,255,255,.03)'" onmouseleave="this.style.background='transparent'">
-      <td style="padding:10px 12px;"><div onclick="toggleTask(${idx})" style="width:16px;height:16px;border-radius:4px;border:1.5px solid ${done?'#7c3aed':'rgba(255,255,255,.2)'};cursor:pointer;display:flex;align-items:center;justify-content:center;background:${done?'rgba(124,58,237,.2)':'transparent'};">${done?'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}</div></td>
-      <td style="padding:10px 12px;font-weight:500;${done?'text-decoration:line-through;opacity:.4;':''}" ondblclick="editTaskName(${idx},this)">${t.name}</td>
-      <td style="padding:10px 12px;">${projBadge(t.project,idx)}</td>
-      <td style="padding:10px 12px;color:var(--t2);" ondblclick="editTaskDue(${idx},this)">${t.due}</td>
-      <td style="padding:10px 12px;">${priBadge(t.priority,idx)}</td>
-      <td style="padding:10px 12px;">${statusBadge(t.status,idx)}</td>
+    tb.innerHTML+=`<tr style="border-bottom:1px solid var(--b1);transition:background .15s;" onmouseenter="this.style.background='rgba(255,255,255,.02)'" onmouseleave="this.style.background='transparent'">
+      <td style="padding:10px 12px;"><div onclick="toggleTask(${idx})" style="width:16px;height:16px;border-radius:4px;border:1.5px solid ${done?'rgba(255,255,255,.4)':'rgba(255,255,255,.15)'};cursor:pointer;display:flex;align-items:center;justify-content:center;background:${done?'rgba(255,255,255,.08)':'transparent'};">${done?'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}</div></td>
+      <td style="padding:10px 12px;font-weight:500;color:rgba(255,255,255,${done?'.35':'.85'});${done?'text-decoration:line-through;':''}" ondblclick="editTaskName(${idx},this)">${t.name}</td>
+      <td style="padding:10px 12px;">${projSelect(idx,t.project)}</td>
+      <td style="padding:10px 12px;color:rgba(255,255,255,.5);" ondblclick="editTaskDue(${idx},this)">${t.due}</td>
+      <td style="padding:10px 12px;">${priSelect(idx,t.priority)}</td>
+      <td style="padding:10px 12px;">${statusSelect(idx,t.status)}</td>
     </tr>`;
   });
-  highlightFilters();
+  updateTaskStats();
 }
-function toggleTask(i){TASKS[i].status=TASKS[i].status==='Done'?'In progress':'Done';renderTasks();updateTaskStats();}
-function editTaskName(i,td){const v=TASKS[i].name;td.innerHTML=`<input type="text" value="${v}" style="background:rgba(255,255,255,.06);border:1px solid var(--b1);border-radius:4px;padding:4px 8px;color:white;font-size:12px;width:100%;outline:none;" onblur="TASKS[${i}].name=this.value;renderTasks();" onkeydown="if(event.key==='Enter'){TASKS[${i}].name=this.value;renderTasks();}">`; td.querySelector('input').focus();}
-function editTaskDue(i,td){const v=TASKS[i].due;td.innerHTML=`<input type="text" value="${v}" style="background:rgba(255,255,255,.06);border:1px solid var(--b1);border-radius:4px;padding:4px 8px;color:white;font-size:12px;width:90px;outline:none;" onblur="TASKS[${i}].due=this.value;renderTasks();" onkeydown="if(event.key==='Enter'){TASKS[${i}].due=this.value;renderTasks();}">`; td.querySelector('input').focus();}
+function toggleTask(i){TASKS[i].status=TASKS[i].status==='Done'?'In progress':'Done';renderTasks();}
+function editTaskName(i,td){const v=TASKS[i].name;td.innerHTML=`<input type="text" value="${v}" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:4px 8px;color:rgba(255,255,255,.9);font-size:12px;width:100%;outline:none;" onblur="TASKS[${i}].name=this.value;renderTasks();" onkeydown="if(event.key==='Enter'){TASKS[${i}].name=this.value;renderTasks();}">`; td.querySelector('input').focus();}
+function editTaskDue(i,td){const v=TASKS[i].due;td.innerHTML=`<input type="text" value="${v}" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:4px 8px;color:rgba(255,255,255,.9);font-size:12px;width:90px;outline:none;" onblur="TASKS[${i}].due=this.value;renderTasks();" onkeydown="if(event.key==='Enter'){TASKS[${i}].due=this.value;renderTasks();}">`; td.querySelector('input').focus();}
 function updateTaskStats(){
   const el=id=>document.getElementById(id);
   if(el('task-total'))el('task-total').textContent=TASKS.length;
@@ -1153,7 +1154,7 @@ function updateTaskStats(){
   if(el('task-due'))el('task-due').textContent=TASKS.filter(t=>t.due==='28/03/2026').length;
   if(el('task-high'))el('task-high').textContent=TASKS.filter(t=>t.priority==='High').length;
 }
-function addTaskRow(){TASKS.push({name:"New task",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started"});renderTasks();updateTaskStats();}
+function addTaskRow(){TASKS.push({name:"New task",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started"});renderTasks();}
 </script>
 <script>
 const months=['Jan','Feb','Mar','Apr','May','Jun','Jul'];
