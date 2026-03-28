@@ -1410,19 +1410,26 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
 <script>
 /* ── Task data with localStorage persistence ── */
 const DEFAULT_TASKS=[
-  {name:"Record voiceovers for missing content",project:"Content",due:"28/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Film missing content shots",project:"Content",due:"28/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Android developer for new flow by link",project:"World Medical Card",due:"28/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Find a bank or API partner for new project",project:"MIDNYTE",due:"28/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Move the PDF generator, API and FTP to Google Cloud",project:"World Medical Card",due:"04/04/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Verify their identity for EDUVO LTD at Companies House",project:"MIDNYTE",due:"28/03/2026",priority:"High",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Develop wavo AI builder",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Tech Founder Society funnel and 7 day challenge",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Tech Founder Society start marketing",project:"MIDNYTE",due:"04/04/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Casino traffic from Microsoft",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"List eduvo on sales platform with new name",project:"MIDNYTE",due:"04/04/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
-  {name:"Casino traffic from Taboola",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"x",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"In progress",timeLogged:10800,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Record voiceovers for missing content",project:"Content",due:"29/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Film missing content shots",project:"Content",due:"29/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Android developer for new flow by link",project:"World Medical Card",due:"29/03/2026",priority:"High",status:"In progress",timeLogged:14400,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Find a bank or API partner for new project",project:"MIDNYTE",due:"29/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Verify their identity and accounting for EDUVO LTD at Companies House",project:"MIDNYTE",due:"29/03/2026",priority:"High",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Develop wavo AI builder",project:"MIDNYTE",due:"29/03/2026",priority:"Medium",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Create casino traffic to easygame from Taboola",project:"MIDNYTE",due:"29/03/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Create casino traffic to easygame from Bing",project:"MIDNYTE",due:"29/03/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Update notion for WMC",project:"World Medical Card",due:"29/03/2026",priority:"High",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Setup MIDNYTE admin panel with dashboard",project:"MIDNYTE",due:"29/03/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Develop Content Pilot (AI Content planner)",project:"MIDNYTE",due:"29/03/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Move the PDF generator, API and FTP to Google Cloud and install API",project:"World Medical Card",due:"04/04/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Tech Founder Society start full marketing campaign",project:"MIDNYTE",due:"04/04/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"List eduvo on sales platform with new name",project:"MIDNYTE",due:"04/04/2026",priority:"Low",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
   {name:"Cancel Azure",project:"World Medical Card",due:"04/04/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Tech Founder Society funnel and 7 day challenge",project:"MIDNYTE",due:"29/03/2026",priority:"Medium",status:"Done",timeLogged:10800,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"iOS developer for new flow by link",project:"World Medical Card",due:"29/03/2026",priority:"High",status:"Done",timeLogged:10800,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Tech Founder Society website and product",project:"MIDNYTE",due:"29/03/2026",priority:"Medium",status:"Done",timeLogged:14400,timerRunning:false,timerStart:null,timeEntries:[]},
+  {name:"Update World Medical Card CTAs",project:"World Medical Card",due:"29/03/2026",priority:"High",status:"Done",timeLogged:7200,timerRunning:false,timerStart:null,timeEntries:[]},
 ];
 /* Load from localStorage or use defaults */
 function loadTasks(){
