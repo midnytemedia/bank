@@ -1408,8 +1408,8 @@ html,body{height:100%;background:var(--bg);color:var(--t1);font-family:'DM Sans'
 </div>
 
 <script>
-/* ── Task data ── */
-const TASKS=[
+/* ── Task data with localStorage persistence ── */
+const DEFAULT_TASKS=[
   {name:"Record voiceovers for missing content",project:"Content",due:"28/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
   {name:"Film missing content shots",project:"Content",due:"28/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
   {name:"Android developer for new flow by link",project:"World Medical Card",due:"28/03/2026",priority:"High",status:"In progress",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
@@ -1424,6 +1424,18 @@ const TASKS=[
   {name:"Casino traffic from Taboola",project:"MIDNYTE",due:"28/03/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
   {name:"Cancel Azure",project:"World Medical Card",due:"04/04/2026",priority:"Medium",status:"Not started",timeLogged:0,timerRunning:false,timerStart:null,timeEntries:[]},
 ];
+/* Load from localStorage or use defaults */
+function loadTasks(){
+  try{
+    const saved=localStorage.getItem('eduvo_tasks');
+    if(saved){const parsed=JSON.parse(saved);if(Array.isArray(parsed)&&parsed.length>0)return parsed.map(t=>({...t,timerRunning:false,timerStart:null}));}
+  }catch(e){}
+  return DEFAULT_TASKS.map(t=>({...t}));
+}
+function saveTasks(){
+  try{localStorage.setItem('eduvo_tasks',JSON.stringify(TASKS));}catch(e){}
+}
+const TASKS=loadTasks();
 const PRIORITIES=['High','Medium','Low'];
 const STATUSES=['Not started','In progress','Done'];
 const PROJECTS=['MIDNYTE','World Medical Card','Content'];
@@ -1504,7 +1516,7 @@ function toggleTimer(idx){
   } else {
     t.timerRunning=true;t.timerStart=Date.now();
   }
-  renderTasks();
+  saveTasks();renderTasks();
 }
 function getTaskTime(t){
   let total=t.timeLogged||0;
@@ -1586,6 +1598,7 @@ function toggleTask(i){TASKS[i].status=TASKS[i].status==='Done'?'In progress':'D
 function editTaskName(i,td){const v=TASKS[i].name;td.innerHTML=`<input type="text" value="${v}" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:4px 8px;color:rgba(255,255,255,.9);font-size:12px;width:100%;outline:none;" onblur="TASKS[${i}].name=this.value;renderTasks();" onkeydown="if(event.key==='Enter'){TASKS[${i}].name=this.value;renderTasks();}">`; td.querySelector('input').focus();}
 function editTaskDue(i,td){const v=TASKS[i].due;td.innerHTML=`<input type="text" value="${v}" placeholder="DD/MM/YYYY" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:4px 8px;color:rgba(255,255,255,.9);font-size:12px;width:90px;outline:none;" onblur="TASKS[${i}].due=this.value;renderTasks();" onkeydown="if(event.key==='Enter'){TASKS[${i}].due=this.value;renderTasks();}">`; td.querySelector('input').focus();}
 function updateTaskStats(){
+  saveTasks();
   const el=id=>document.getElementById(id);
   if(el('task-total'))el('task-total').textContent=TASKS.length;
   if(el('task-progress'))el('task-progress').textContent=TASKS.filter(t=>t.status==='In progress').length;
